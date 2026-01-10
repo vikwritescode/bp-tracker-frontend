@@ -1,8 +1,11 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../context/AuthContext";
+import { Button } from "@/components/ui/button";
 
 const Dashboard = () => {
   const { user } = useContext(Context);
+  const [load, setLoad] = useState(true);
+  const [debateArr, setDebateArr] = useState([]);
 
   useEffect(() => {
     const fetchStuff = async () => {
@@ -14,6 +17,8 @@ const Dashboard = () => {
         });
         const json = await response.json();
         console.log(json);
+        setDebateArr(json.debates);
+        setLoad(false);
       } catch (err) {
         console.error(err);
       }
@@ -44,7 +49,8 @@ const Dashboard = () => {
 
   return (
     <>
-      <button onClick={handleMakeRequest}>Make Request</button>
+      <Button onClick={handleMakeRequest}>Make Request</Button>
+
     </>
   );
 };

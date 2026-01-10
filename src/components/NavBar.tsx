@@ -3,6 +3,16 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Context } from "../context/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase-config";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from "@/components/ui/navigation-menu";
 
 const NavBar = () => {
   const { user } = useContext(Context);
@@ -18,20 +28,42 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="navbar">
-      <NavLink to="/">Dashboard</NavLink>
-      {user ? (
-        <>
-          <p>hello, {user.email}</p>
-          <button onClick={handleSignOut}>Sign Out</button>
-        </>
-      ) : (
-        <>
-          <NavLink to="/signin"> Sign In</NavLink>
-          <NavLink to="/signup"> Sign Up</NavLink>
-        </>
-      )}
-    </nav>
+    <NavigationMenu>
+      <NavigationMenuList>
+        <NavigationMenuItem>
+          <NavigationMenuLink>
+            <NavLink to="/">Dashboard</NavLink>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          {user ? (
+            <>
+              <NavigationMenuTrigger>
+                <p>hello, {user.email}</p>
+              </NavigationMenuTrigger>
+              <NavigationMenuContent className="p-4 w-[200px]">
+                <NavigationMenuLink>
+                  <button onClick={handleSignOut}>Sign Out</button>
+                </NavigationMenuLink>
+              </NavigationMenuContent>
+            </>
+          ) : (
+            <>
+              <NavigationMenuTrigger>Account</NavigationMenuTrigger>
+              <NavigationMenuContent className="p-4 w-[200px]">
+                <NavigationMenuLink>
+                  <NavLink to="/signin"> Sign In</NavLink>
+                </NavigationMenuLink>
+                <NavigationMenuLink>
+                  <NavLink to="/signup"> Sign Up</NavLink>
+                </NavigationMenuLink>
+              </NavigationMenuContent>
+            </>
+          )}
+        </NavigationMenuItem>
+      </NavigationMenuList>
+      <NavigationMenuViewport />
+    </NavigationMenu>
   );
 };
 
