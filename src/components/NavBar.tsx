@@ -38,9 +38,7 @@ const NavBar = () => {
         <NavigationMenuItem>
           {user ? (
             <>
-              <NavigationMenuTrigger>
-                <p>hello, {user.email}</p>
-              </NavigationMenuTrigger>
+              <NavigationMenuTrigger>{user.email}</NavigationMenuTrigger>
               <NavigationMenuContent className="p-4 w-[200px]">
                 <NavigationMenuLink>
                   <button onClick={handleSignOut}>Sign Out</button>

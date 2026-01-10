@@ -52,10 +52,10 @@ const Dashboard = () => {
   return (
     <>
       {/*<Button onClick={handleMakeRequest}>Make Request</Button>*/}
-
+      <h1 className="text-6xl">Dashboard</h1>
       <PositionWisePointCard debateData={debateArr}/>
       <div className="mt-4">
-        <h1 className="text-6xl">By Team Points</h1>
+        <h2 className="text-4xl">By Team Points</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
           <PieChartPointCard title="1st" debateData={debateArr} points={3} />
           <PieChartPointCard title="2nd" debateData={debateArr} points={2} />

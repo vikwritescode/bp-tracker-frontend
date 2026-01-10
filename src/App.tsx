@@ -6,6 +6,7 @@ import SignUp from "./routes/SignUp";
 import AuthContext from "./context/AuthContext";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Layout from "./routes/Layout";
+import Debates from "./routes/Debates";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,14 @@ const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignUp />,
+      },
+      {
+        path: "debates",
+        element: (
+          <ProtectedRoute>
+            <Debates />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
