@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase-config.ts"
+import { auth } from "../firebase-config.ts";
 import { useNavigate } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label.tsx";
+import { Button } from "@/components/ui/button.tsx";
+import { Input } from "@/components/ui/input.tsx";
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,21 +19,36 @@ const SignUp = () => {
       console.error(err);
     }
   };
-  return (
-    <>
-        <input
-          type="text"
-          placeholder="email"
+return (
+  <Card className="w-full max-w-md mx-auto">
+    <CardHeader>
+      <CardTitle>Sign Up</CardTitle>
+    </CardHeader>
+    <CardContent className="space-y-4">
+      <div className="space-y-2">
+        <Label htmlFor="email">Email</Label>
+        <Input
+          id="email"
+          type="email"
+          placeholder="foo@bar.com"
           onChange={(e) => setEmail(e.target.value)}
-        ></input>
-        <input
-          type="text"
-          placeholder="password"
+        />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="password">Password</Label>
+        <Input
+          id="password"
+          type="password"
+          placeholder="Enter your password"
           onChange={(e) => setPassword(e.target.value)}
-        ></input>
-        <button onClick={handleSignUp}>Sign Up</button>
-    </>
-  );
+        />
+      </div>
+      <Button onClick={handleSignUp} className="w-full">
+        Sign Up
+      </Button>
+    </CardContent>
+  </Card>
+);
 };
 
 export default SignUp;
