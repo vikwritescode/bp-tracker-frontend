@@ -31,7 +31,7 @@ const NavBar = () => {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuLink>
+          <NavigationMenuLink asChild>
             <NavLink to="/">Dashboard</NavLink>
           </NavigationMenuLink>
         </NavigationMenuItem>
