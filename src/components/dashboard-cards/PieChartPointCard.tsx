@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { Pie, PieChart } from "recharts";
+import { Cell, Pie, PieChart } from "recharts";
 import {
   ChartContainer,
   ChartTooltip,
@@ -12,22 +12,44 @@ interface PieChartCardProps {
   points: number;
 }
 
-const PieChartPointCard = ({ title, debateData, points }: PieChartCardProps) => {
-  const chartConfig = {} satisfies ChartConfig;
+const PieChartPointCard = ({
+  title,
+  debateData,
+  points,
+}: PieChartCardProps) => {
+  const chartConfig = {
+    OG: {
+      label: "OG",
+      color: "#1d4f8b",
+    },
+    OO: {
+      label: "OO",
+      color: "#f76c26",
+    },
+    CG: {
+      label: "CG",
+      color: "#3b89c4",
+    },
+    CO: {
+      label: "CO",
+      color: "#ffb84d",
+    },
+  } satisfies ChartConfig;
   const chartData = [
     { position: "OG", count: 0 },
     { position: "OO", count: 0 },
     { position: "CG", count: 0 },
     { position: "CO", count: 0 },
   ];
-  debateData.filter(x => x[4] == points)
-  .forEach((debate) => {
-    const position = debate[3];
-    const rec_to_inc = chartData.find((x) => x.position == position);
-    if (rec_to_inc) {
-      rec_to_inc.count++;
-    }
-  });
+  debateData
+    .filter((x) => x[4] == points)
+    .forEach((debate) => {
+      const position = debate[3];
+      const rec_to_inc = chartData.find((x) => x.position == position);
+      if (rec_to_inc) {
+        rec_to_inc.count++;
+      }
+    });
 
   return (
     <Card>
@@ -49,7 +71,17 @@ const PieChartPointCard = ({ title, debateData, points }: PieChartCardProps) => 
               dataKey="count"
               nameKey="position"
               innerRadius={60}
-            />
+            >
+              {chartData.map((entry) => (
+                <Cell
+                  key={entry.position}
+                  fill={
+                    chartConfig[entry.position as keyof typeof chartConfig]
+                      .color
+                  }
+                />
+              ))}
+            </Pie>
           </PieChart>
         </ChartContainer>
       </CardContent>
