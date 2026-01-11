@@ -13,7 +13,12 @@ import {
   NavigationMenuTrigger,
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
-import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 const NavBar = () => {
   const { user } = useContext(Context);
@@ -47,15 +52,24 @@ const NavBar = () => {
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuLink asChild>
-                    <NavLink to="/import">Import Tab</NavLink>
-                  </NavigationMenuLink>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <NavigationMenuLink>Add Records</NavigationMenuLink>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-48">
+                      <DropdownMenuItem>
+                        <NavLink to="/add">Add Debate Manually</NavLink>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <NavLink to="/import">Import from Tab URL</NavLink>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </NavigationMenuItem>
               </>
             )}
           </NavigationMenuList>
         </NavigationMenu>
-
         {/* Use DropdownMenu for the account menu */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

@@ -8,6 +8,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import Layout from "./routes/Layout";
 import Debates from "./routes/Debates";
 import ImportDebates from "./routes/ImportDebates";
+import AddDebate from "./routes/AddDebate";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <ImportDebates />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "add",
+        element: (
+          <ProtectedRoute>
+            <AddDebate />
           </ProtectedRoute>
         )
       }

@@ -150,7 +150,7 @@ const ImportDebates = () => {
   };
   return (
     <>
-      <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6">
+      <h1 className="text-6xl">
         Import from URL
       </h1>
 
