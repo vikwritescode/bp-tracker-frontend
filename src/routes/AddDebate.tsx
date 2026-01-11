@@ -70,9 +70,12 @@ const AddDebate = () => {
           },
           body: JSON.stringify(debateData),
         });
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
         const json = await response.json();
         console.log(json);
-        navigate("/debates")
+        navigate("/debates");
       } catch (err) {
         console.error(err);
       } finally {
