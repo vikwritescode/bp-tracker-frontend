@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Context } from "../context/AuthContext";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -7,7 +7,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import {
   Item,
   ItemTitle,
-  ItemActions,
   ItemContent,
 } from "@/components/ui/item";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
