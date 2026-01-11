@@ -1,6 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../context/AuthContext";
 import { Button } from "@/components/ui/button";
+import PieChartPointCard from "@/components/dashboard-cards/PieChartPointCard";
+import { Card } from "@/components/ui/card";
+import PositionWisePointCard from "@/components/dashboard-cards/PositionWisePointCard";
 
 const Dashboard = () => {
   const { user } = useContext(Context);
@@ -29,28 +32,37 @@ const Dashboard = () => {
   const handleMakeRequest = async () => {
     const token = await user?.getIdToken();
     const debateData = {
-        position: "OG",
-        date: "2025-12-31",
-        points: 3,
-        speaks: 77
-    }
+      position: "OG",
+      date: "2025-12-31",
+      points: 3,
+      speaks: 77,
+    };
     const response = await fetch("http://localhost:8000/api/add", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json"
-     },
-      body: JSON.stringify(debateData)
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(debateData),
     });
-    const json = await response.json()
-    console.log(json)
-
+    const json = await response.json();
+    console.log(json);
   };
 
   return (
     <>
-      <Button onClick={handleMakeRequest}>Make Request</Button>
-
+      {/*<Button onClick={handleMakeRequest}>Make Request</Button>*/}
+      <h1 className="text-6xl">Dashboard</h1>
+      <PositionWisePointCard debateData={debateArr}/>
+      <div className="mt-4">
+        <h2 className="text-4xl">By Team Points</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+          <PieChartPointCard title="1st" debateData={debateArr} points={3} />
+          <PieChartPointCard title="2nd" debateData={debateArr} points={2} />
+          <PieChartPointCard title="3rd" debateData={debateArr} points={1} />
+          <PieChartPointCard title="4th" debateData={debateArr} points={0} />
+        </div>
+      </div>
     </>
   );
 };
