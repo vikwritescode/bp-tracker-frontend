@@ -13,7 +13,8 @@ import {
   NavigationMenuTrigger,
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
-
+import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 const NavBar = () => {
   const { user } = useContext(Context);
   const navigate = useNavigate();
@@ -28,40 +29,59 @@ const NavBar = () => {
   };
 
   return (
-    <NavigationMenu>
-      <NavigationMenuList>
-        <NavigationMenuItem>
-          <NavigationMenuLink asChild>
-            <NavLink to="/">Dashboard</NavLink>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          {user ? (
-            <>
-              <NavigationMenuTrigger>{user.email}</NavigationMenuTrigger>
-              <NavigationMenuContent className="p-4 w-[200px]">
-                <NavigationMenuLink>
-                  <button onClick={handleSignOut}>Sign Out</button>
-                </NavigationMenuLink>
-              </NavigationMenuContent>
-            </>
-          ) : (
-            <>
-              <NavigationMenuTrigger>Account</NavigationMenuTrigger>
-              <NavigationMenuContent className="p-4 w-[200px]">
-                <NavigationMenuLink>
-                  <NavLink to="/signin"> Sign In</NavLink>
-                </NavigationMenuLink>
-                <NavigationMenuLink>
-                  <NavLink to="/signup"> Sign Up</NavLink>
-                </NavigationMenuLink>
-              </NavigationMenuContent>
-            </>
-          )}
-        </NavigationMenuItem>
-      </NavigationMenuList>
-      <NavigationMenuViewport />
-    </NavigationMenu>
+    <div className="w-full border-b">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
+        <NavigationMenu>
+          <NavigationMenuList className="flex gap-4">
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <NavLink to="/">Dashboard</NavLink>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+
+            {user && (
+              <>
+                <NavigationMenuItem>
+                  <NavigationMenuLink asChild>
+                    <NavLink to="/debates">Debates</NavLink>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuLink asChild>
+                    <NavLink to="/import">Import Tab</NavLink>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              </>
+            )}
+          </NavigationMenuList>
+        </NavigationMenu>
+
+        {/* Use DropdownMenu for the account menu */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" size="sm">
+              {user ? user.email : "Account"}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-48">
+            {user ? (
+              <DropdownMenuItem onClick={handleSignOut}>
+                Sign Out
+              </DropdownMenuItem>
+            ) : (
+              <>
+                <DropdownMenuItem asChild>
+                  <NavLink to="/signin">Sign In</NavLink>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <NavLink to="/signup">Sign Up</NavLink>
+                </DropdownMenuItem>
+              </>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </div>
   );
 };
 
