@@ -7,6 +7,7 @@ import AuthContext from "./context/AuthContext";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Layout from "./routes/Layout";
 import Debates from "./routes/Debates";
+import ImportDebates from "./routes/ImportDebates";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,14 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "import",
+        element: (
+          <ProtectedRoute>
+            <ImportDebates />
+          </ProtectedRoute>
+        )
+      }
     ],
   },
 ]);

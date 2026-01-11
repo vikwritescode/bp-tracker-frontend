@@ -43,7 +43,7 @@ const Debates = () => {
             <TableHead>Speaks</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>5173
+        <TableBody>
             {debateArr.map(rec => (
                 <TableRow>
                     <TableCell>{rec[2]}</TableCell>
