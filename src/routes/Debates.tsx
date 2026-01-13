@@ -11,12 +11,6 @@ import {
 import { Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
-import { useNavigate } from "react-router-dom";
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-} from "@/components/ui/tooltip";
 
 import {
   Popover,
@@ -30,7 +24,6 @@ const Debates = () => {
   const [load, setLoad] = useState(true);
   const [loads, setLoads] = useState<boolean[]>([]);
   const [refresher, setRefresher] = useState(false);
-  const navigate = useNavigate();
   useEffect(() => {
     const fetchStuff = async () => {
       const token = await user?.getIdToken();
@@ -51,7 +44,7 @@ const Debates = () => {
     fetchStuff();
   }, [refresher]);
 
-  const handleDeleteClick = async (x: number, i: number) => {
+  const handleDeleteClick = async (x: number) => {
     try {
       setLoads((prev) => prev.map((v, i) => (i === x ? true : v)));
       const token = await user?.getIdToken();
@@ -119,7 +112,7 @@ const Debates = () => {
                   </PopoverContent>
                 </Popover>
               </TableCell>
-              <TableCell onClick={() => handleDeleteClick(rec[0], i)}>
+              <TableCell onClick={() => handleDeleteClick(rec[0])}>
                 <Button
                   disabled={loads[i]}
                   variant="ghost"
