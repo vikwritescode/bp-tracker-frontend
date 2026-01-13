@@ -12,7 +12,14 @@ import { Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { useNavigate } from "react-router-dom";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@/components/ui/tooltip";
 
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { InfoIcon } from "lucide-react";
 const Debates = () => {
   const { user } = useContext(Context);
   const [debateArr, setDebateArr] = useState([]);
@@ -73,6 +80,8 @@ const Debates = () => {
             <TableHead>Position</TableHead>
             <TableHead>Points</TableHead>
             <TableHead>Speaks</TableHead>
+            <TableHead>Info Slide</TableHead>
+            <TableHead>Motion</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -82,6 +91,30 @@ const Debates = () => {
               <TableCell>{rec[3]}</TableCell>
               <TableCell>{rec[4]}</TableCell>
               <TableCell>{rec[5]}</TableCell>
+              <TableCell>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="ghost">
+                      <InfoIcon />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="max-w-md max-h-[400px] overflow-y-auto">
+                    <p className="text-sm whitespace-pre-wrap">{rec[6]}</p>
+                  </PopoverContent>
+                </Popover>
+              </TableCell>
+              <TableCell>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="ghost">
+                      <InfoIcon />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="max-w-md max-h-[400px] overflow-y-auto">
+                    <p className="text-sm whitespace-pre-wrap">{rec[7]}</p>
+                  </PopoverContent>
+                </Popover>
+              </TableCell>
               <TableCell onClick={() => handleDeleteClick(rec[0], i)}>
                 <Button
                   disabled={loads[i]}
