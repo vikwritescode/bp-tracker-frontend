@@ -11,15 +11,19 @@ import {
 import { Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
-import { useNavigate } from "react-router-dom";
 
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { InfoIcon } from "lucide-react";
 const Debates = () => {
   const { user } = useContext(Context);
   const [debateArr, setDebateArr] = useState([]);
   const [load, setLoad] = useState(true);
   const [loads, setLoads] = useState<boolean[]>([]);
   const [refresher, setRefresher] = useState(false);
-  const navigate = useNavigate();
   useEffect(() => {
     const fetchStuff = async () => {
       const token = await user?.getIdToken();
@@ -40,7 +44,7 @@ const Debates = () => {
     fetchStuff();
   }, [refresher]);
 
-  const handleDeleteClick = async (x: number, i: number) => {
+  const handleDeleteClick = async (x: number) => {
     try {
       setLoads((prev) => prev.map((v, i) => (i === x ? true : v)));
       const token = await user?.getIdToken();
@@ -73,6 +77,8 @@ const Debates = () => {
             <TableHead>Position</TableHead>
             <TableHead>Points</TableHead>
             <TableHead>Speaks</TableHead>
+            <TableHead>Info Slide</TableHead>
+            <TableHead>Motion</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -82,7 +88,31 @@ const Debates = () => {
               <TableCell>{rec[3]}</TableCell>
               <TableCell>{rec[4]}</TableCell>
               <TableCell>{rec[5]}</TableCell>
-              <TableCell onClick={() => handleDeleteClick(rec[0], i)}>
+              <TableCell>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="ghost">
+                      <InfoIcon />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="max-w-md max-h-[400px] overflow-y-auto">
+                    <p className="text-sm whitespace-pre-wrap">{rec[6]}</p>
+                  </PopoverContent>
+                </Popover>
+              </TableCell>
+              <TableCell>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="ghost">
+                      <InfoIcon />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="max-w-md max-h-[400px] overflow-y-auto">
+                    <p className="text-sm whitespace-pre-wrap">{rec[7]}</p>
+                  </PopoverContent>
+                </Popover>
+              </TableCell>
+              <TableCell onClick={() => handleDeleteClick(rec[0])}>
                 <Button
                   disabled={loads[i]}
                   variant="ghost"

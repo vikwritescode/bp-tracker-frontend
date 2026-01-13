@@ -7,6 +7,7 @@ import { AlertCircleIcon } from "lucide-react";
 import { Spinner } from "@/components/ui/spinner";
 import { useNavigate } from "react-router-dom";
 
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectTrigger,
@@ -33,6 +34,8 @@ const AddDebate = () => {
   const [pos, setPos] = useState("OG");
   const [points, setPoints] = useState("");
   const [speaks, setSpeaks] = useState("");
+  const [infoSlide, setInfoSlide] = useState("");
+  const [motion, setMotion] = useState("");
 
   const [open, setOpen] = useState(false);
   const [dataValidError, setDataValidError] = useState(false);
@@ -49,6 +52,8 @@ const AddDebate = () => {
       date: date.toISOString().slice(0, 10),
       points: parseInt(points),
       speaks: parseInt(speaks),
+      infoslide: infoSlide,
+      motion: motion
     };
     const valid = ["OG", "OO", "CG", "CO"];
     if (
@@ -78,6 +83,7 @@ const AddDebate = () => {
         navigate("/debates");
       } catch (err) {
         console.error(err);
+        setError(true);
       } finally {
         setLoad(false);
       }
@@ -179,11 +185,31 @@ const AddDebate = () => {
             />
           </div>
         </div>
+
+        <div className="space-y-1.5">
+          <h3 className="text-sm font-medium">Info Slide</h3>
+          <Textarea
+            value={infoSlide}
+            onChange={(e) => setInfoSlide(e.target.value)}
+            className="min-h-[80px] w-full text-sm resize-y"
+            placeholder="Info Slide"
+          />
+        </div>
+
+        <div className="space-y-1.5">
+          <h3 className="text-sm font-medium">Motion</h3>
+          <Textarea
+            value={motion}
+            onChange={(e) => setMotion(e.target.value)}
+            className="min-h-[80px] w-full text-sm resize-y"
+            placeholder="Motion"
+          />
+        </div>
       </CardContent>
 
       <CardAction className="flex justify-end px-6 pb-4">
         <Button onClick={handleAdd} disabled={load} size="sm">
-          {load ? <Spinner /> : "Add Records"}
+          {load ? <Spinner /> : "Add Debate"}
         </Button>
       </CardAction>
     </Card>
