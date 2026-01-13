@@ -18,7 +18,11 @@ import {
   TooltipContent,
 } from "@/components/ui/tooltip";
 
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { InfoIcon } from "lucide-react";
 const Debates = () => {
   const { user } = useContext(Context);
