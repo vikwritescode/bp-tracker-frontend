@@ -5,13 +5,9 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebase-config";
 import {
   NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import {
   DropdownMenu,
@@ -34,13 +30,18 @@ const NavBar = () => {
   };
 
   return (
-    <div className="w-full border-b">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
+    <div className="w-full border-b overflow-x-hidden">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-3">
         <NavigationMenu>
           <NavigationMenuList className="flex gap-4">
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
-                <NavLink to="/">Dashboard</NavLink>
+                <NavLink
+                  to="/"
+                  className="whitespace-nowrap overflow-hidden text-ellipsis"
+                >
+                  Dashboard
+                </NavLink>
               </NavigationMenuLink>
             </NavigationMenuItem>
 
@@ -48,19 +49,29 @@ const NavBar = () => {
               <>
                 <NavigationMenuItem>
                   <NavigationMenuLink asChild>
-                    <NavLink to="/debates">Debates</NavLink>
+                    <NavLink
+                      to="/debates"
+                      className="whitespace-nowrap overflow-hidden text-ellipsis"
+                    >
+                      Debates
+                    </NavLink>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <NavigationMenuLink>Add Records</NavigationMenuLink>
+                      <NavigationMenuLink className="whitespace-nowrap overflow-hidden text-ellipsis">
+                        Add Records
+                      </NavigationMenuLink>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-48">
-                      <DropdownMenuItem>
+                    <DropdownMenuContent
+                      align="end"
+                      className="w-48 max-w-full"
+                    >
+                      <DropdownMenuItem asChild>
                         <NavLink to="/add">Add Debate Manually</NavLink>
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
+                      <DropdownMenuItem asChild>
                         <NavLink to="/import">Import from Tab URL</NavLink>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
@@ -70,14 +81,14 @@ const NavBar = () => {
             )}
           </NavigationMenuList>
         </NavigationMenu>
-        {/* Use DropdownMenu for the account menu */}
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="whitespace-nowrap">
               {user ? user.email : "Account"}
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-48">
+          <DropdownMenuContent align="end" className="w-48 max-w-full">
             {user ? (
               <DropdownMenuItem onClick={handleSignOut}>
                 Sign Out
