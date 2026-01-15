@@ -48,7 +48,7 @@ const ImportDebates = () => {
       setLoad(true);
       setError(false);
       const response = await fetch(
-        `http://localhost:8000/api/tournaments?url=${encodeURIComponent(url)}`,
+        `${import.meta.env.VITE_API_URL}/api/tournaments?url=${encodeURIComponent(url)}`,
         {
           method: "GET",
           headers: {
@@ -82,7 +82,7 @@ const ImportDebates = () => {
       setNameLoad(true);
       setNameError(false);
       const response = await fetch(
-        `http://localhost:8000/api/speakers?url=${encodeURIComponent(
+        `${import.meta.env.VITE_API_URL}/api/speakers?url=${encodeURIComponent(
           url
         )}&slug=${encodeURIComponent(
           selectedSlug
@@ -125,7 +125,7 @@ const ImportDebates = () => {
         speaker: selectedName,
         date: date.toISOString().slice(0, 10),
       };
-      const response = await fetch("http://localhost:8000/api/import", {
+      const response = await fetch("${import.meta.env.VITE_API_URL}/api/import", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
