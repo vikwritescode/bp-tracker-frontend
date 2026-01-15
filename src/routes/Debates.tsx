@@ -12,18 +12,8 @@ import { Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { Badge } from "@/components/ui/badge";
+import { type DebateRecord } from "@/interfaces";
 
-interface DebateRecord {
-  id: number;
-  uid: string;
-  date: string;
-  position: string;
-  points: number;
-  speaks: number;
-  infoslide: string;
-  motion: string;
-  categories: Array<string>;
-}
 
 import {
   Popover,
