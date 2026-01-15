@@ -14,8 +14,8 @@ const PositionWisePointCard = ({ debateData }: PositionWidePointCardProps) => {
   const dispAv = ([s, c]: Array<number>) => (s / c || 0).toFixed(2);
   const stats = debateData.reduce(
     (acc, debate) => {
-      const position = debate[3].toLowerCase();
-      const points = debate[4];
+      const position = debate["position"].toLowerCase();
+      const points = debate["points"];
 
       acc[position][0] += points;
       acc[position][1] += 1;

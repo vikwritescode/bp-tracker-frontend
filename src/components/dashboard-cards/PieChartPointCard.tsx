@@ -42,9 +42,9 @@ const PieChartPointCard = ({
     { position: "CO", count: 0 },
   ];
   debateData
-    .filter((x) => x[4] == points)
+    .filter((x) => x["points"] == points)
     .forEach((debate) => {
-      const position = debate[3];
+      const position = debate["position"];
       const rec_to_inc = chartData.find((x) => x.position == position);
       if (rec_to_inc) {
         rec_to_inc.count++;
