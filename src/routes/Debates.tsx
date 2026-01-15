@@ -84,10 +84,10 @@ const Debates = () => {
         <TableBody>
           {debateArr.map((rec, i) => (
             <TableRow>
-              <TableCell>{rec[2]}</TableCell>
-              <TableCell>{rec[3]}</TableCell>
-              <TableCell>{rec[4]}</TableCell>
-              <TableCell>{rec[5]}</TableCell>
+              <TableCell>{rec["date"]}</TableCell>
+              <TableCell>{rec["position"]}</TableCell>
+              <TableCell>{rec["points"]}</TableCell>
+              <TableCell>{rec["speaks"]}</TableCell>
               <TableCell>
                 <Popover>
                   <PopoverTrigger asChild>
@@ -96,7 +96,7 @@ const Debates = () => {
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="max-w-md max-h-[400px] overflow-y-auto">
-                    <p className="text-sm whitespace-pre-wrap">{rec[6]}</p>
+                    <p className="text-sm whitespace-pre-wrap">{rec["infoslide"]}</p>
                   </PopoverContent>
                 </Popover>
               </TableCell>
@@ -108,7 +108,7 @@ const Debates = () => {
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="max-w-md max-h-[400px] overflow-y-auto">
-                    <p className="text-sm whitespace-pre-wrap">{rec[7]}</p>
+                    <p className="text-sm whitespace-pre-wrap">{rec["motion"]}</p>
                   </PopoverContent>
                 </Popover>
               </TableCell>
