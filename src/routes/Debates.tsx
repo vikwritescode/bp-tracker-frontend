@@ -11,6 +11,19 @@ import {
 import { Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
+import { Badge } from "@/components/ui/badge";
+
+interface DebateRecord {
+  id: number;
+  uid: string;
+  date: string;
+  position: string;
+  points: number;
+  speaks: number;
+  infoslide: string;
+  motion: string;
+  categories: Array<string>;
+}
 
 import {
   Popover,
@@ -79,10 +92,11 @@ const Debates = () => {
             <TableHead>Speaks</TableHead>
             <TableHead>Info Slide</TableHead>
             <TableHead>Motion</TableHead>
+            <TableHead>Type</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {debateArr.map((rec, i) => (
+          {debateArr.map((rec: DebateRecord, i) => (
             <TableRow>
               <TableCell>{rec["date"]}</TableCell>
               <TableCell>{rec["position"]}</TableCell>
@@ -96,7 +110,9 @@ const Debates = () => {
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="max-w-md max-h-[400px] overflow-y-auto">
-                    <p className="text-sm whitespace-pre-wrap">{rec["infoslide"]}</p>
+                    <p className="text-sm whitespace-pre-wrap">
+                      {rec["infoslide"]}
+                    </p>
                   </PopoverContent>
                 </Popover>
               </TableCell>
@@ -108,11 +124,22 @@ const Debates = () => {
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="max-w-md max-h-[400px] overflow-y-auto">
-                    <p className="text-sm whitespace-pre-wrap">{rec["motion"]}</p>
+                    <p className="text-sm whitespace-pre-wrap">
+                      {rec["motion"]}
+                    </p>
                   </PopoverContent>
                 </Popover>
               </TableCell>
-              <TableCell onClick={() => handleDeleteClick(rec[0])}>
+              <TableCell>
+                <div className="flex flex-wrap gap-1">
+                  {(rec["categories"] || []).map((x: string) => (
+                    <Badge key={x} className="text-xs px-2 py-1 rounded-md">
+                      {x}
+                    </Badge>
+                  ))}
+                </div>
+              </TableCell>
+              <TableCell onClick={() => handleDeleteClick(rec["id"])}>
                 <Button
                   disabled={loads[i]}
                   variant="ghost"
