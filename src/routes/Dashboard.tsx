@@ -17,7 +17,7 @@ const Dashboard = () => {
       const token = await user?.getIdToken();
       try {
         setLoad(true);
-        const response = await fetch("http://localhost:8000/api/get", {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/get`, {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         });

@@ -67,7 +67,7 @@ const AddDebate = () => {
         setLoad(true);
         setError(false);
         setDataValidError(false);
-        const response = await fetch("http://localhost:8000/api/add", {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/add`, {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
