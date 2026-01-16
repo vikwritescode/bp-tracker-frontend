@@ -125,7 +125,7 @@ const ImportDebates = () => {
         speaker: selectedName,
         date: date.toISOString().slice(0, 10),
       };
-      const response = await fetch("${import.meta.env.VITE_API_URL}/api/import", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/import`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
