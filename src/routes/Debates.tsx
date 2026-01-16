@@ -8,7 +8,9 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table";
-import { Trash } from "lucide-react";
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Trash, AlertCircleIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { Badge } from "@/components/ui/badge";
@@ -24,6 +26,7 @@ const Debates = () => {
   const { user } = useContext(Context);
   const [debateArr, setDebateArr] = useState([]);
   const [load, setLoad] = useState(true);
+  const [error, setError] = useState(false);
   const [loads, setLoads] = useState<boolean[]>([]);
   const [refresher, setRefresher] = useState(false);
   useEffect(() => {
@@ -43,6 +46,7 @@ const Debates = () => {
         setLoads(Array(json.debates.length).fill(false));
         setLoad(false);
       } catch (err) {
+        setError(true);
         console.error(err);
       }
     };
@@ -76,6 +80,22 @@ const Debates = () => {
       setLoads((prev) => prev.map((v, i) => (i === x ? false : v)));
     }
   };
+
+  if (error) {
+    return (
+      <>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold">
+          Your Debates
+        </h1>
+        <Alert variant="destructive">
+          <AlertCircleIcon className="h-4 w-4" />
+          <AlertTitle className="text-left">Error Fetching Data</AlertTitle>
+          <AlertDescription>Please reload the page.</AlertDescription>
+        </Alert>
+      </>
+    );
+  }
+
   return (
     <>
       <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold">
@@ -130,11 +150,13 @@ const Debates = () => {
               </TableCell>
               <TableCell>
                 <div className="flex flex-wrap gap-1">
-                  {(rec["categories"] || []).map((x: string) => (
-                    <Badge key={x} className="text-xs px-2 py-1 rounded-md">
-                      {x}
-                    </Badge>
-                  ))}
+                  {(rec["categories"] || [])
+                    .filter((x: string) => x)
+                    .map((x: string) => (
+                      <Badge key={x} className="text-xs px-2 py-1 rounded-md">
+                        {x}
+                      </Badge>
+                    ))}
                 </div>
               </TableCell>
               <TableCell onClick={() => handleDeleteClick(rec["id"])}>
