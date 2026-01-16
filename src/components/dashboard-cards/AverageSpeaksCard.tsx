@@ -15,7 +15,7 @@ const AverageSpeaksCard = ({ debateData }: AverageSpeaksCardProps) => {
     } else {
       setMeanSpeaks(mean(speakArray));
     }
-  }, []);
+  }, [debateData]);
 
   return (
     <Card>

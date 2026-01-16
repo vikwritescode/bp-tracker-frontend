@@ -48,7 +48,9 @@ const ImportDebates = () => {
       setLoad(true);
       setError(false);
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/tournaments?url=${encodeURIComponent(url)}`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/tournaments?url=${encodeURIComponent(url)}`,
         {
           method: "GET",
           headers: {
@@ -125,14 +127,17 @@ const ImportDebates = () => {
         speaker: selectedName,
         date: date.toISOString().slice(0, 10),
       };
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/import`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(reqData),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/import`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reqData),
+        }
+      );
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
@@ -150,7 +155,7 @@ const ImportDebates = () => {
   };
   return (
     <>
-      <h1 className="text-6xl">
+      <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold">
         Import from URL
       </h1>
 

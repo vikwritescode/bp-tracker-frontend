@@ -7,6 +7,9 @@ The theming has been done with shadcn and tailwind.
 
 This, at the moment, also allows for records to be made through simply a URL and a name, instead of adding the results of all of the rounds manually. 
 
+## Official Instance
+Currently live on [derivative.lol][https://derivative.lol]
+
 ## Features
 - Import from URL
 - Get position wide averages
@@ -16,6 +19,3 @@ This, at the moment, also allows for records to be made through simply a URL and
 - Delete Records
 - View Motions and Infoslides
 - Automatic Categorisation of Debates
-
-## Planned
-- Improved Model for Speaker Categories

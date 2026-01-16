@@ -14,7 +14,6 @@ import { Spinner } from "@/components/ui/spinner";
 import { Badge } from "@/components/ui/badge";
 import { type DebateRecord } from "@/interfaces";
 
-
 import {
   Popover,
   PopoverContent,
@@ -31,10 +30,13 @@ const Debates = () => {
     const fetchStuff = async () => {
       const token = await user?.getIdToken();
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/get`, {
-          method: "GET",
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/get`,
+          {
+            method: "GET",
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         const json = await response.json();
         console.log(json);
         setDebateArr(json.debates);
@@ -51,13 +53,17 @@ const Debates = () => {
     try {
       setLoads((prev) => prev.map((v, i) => (i === x ? true : v)));
       const token = await user?.getIdToken();
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/delete/${x}`, {
-        method: "DELETE",
-        headers: {
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/delete/${x}`,
+        {
+          method: "DELETE",
+          headers: {
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+        }
+      );
       if (!response.ok) {
+        console.log(load);
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
       const json = await response.json();
@@ -72,7 +78,9 @@ const Debates = () => {
   };
   return (
     <>
-      <h1 className="text-6xl">Your Debates</h1>
+      <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold">
+        Your Debates
+      </h1>
       <Table>
         <TableHeader>
           <TableRow>
