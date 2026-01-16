@@ -15,6 +15,7 @@ import {
 
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert.tsx";
 import { AlertCircleIcon } from "lucide-react";
+import { Spinner } from "@/components/ui/spinner.tsx";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -23,9 +24,11 @@ const SignIn = () => {
     "This should not be visible."
   );
   const [error, setError] = useState(false);
+  const [load, setLoad] = useState(false);
   const navigate = useNavigate();
   const handleSignIn = async () => {
     try {
+      setLoad(true);
       setError(false);
       const user = await signInWithEmailAndPassword(auth, email, password);
       console.log(user);
@@ -38,6 +41,8 @@ const SignIn = () => {
       } else {
         setErrorMessage(String(err));
       }
+    } finally {
+      setLoad(false);
     }
   };
   return (
@@ -69,8 +74,8 @@ const SignIn = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <Button onClick={handleSignIn} className="w-full">
-          Log in
+        <Button onClick={handleSignIn} className="w-full" disabled={load}>
+          {load ? <Spinner /> : "Log in"}
         </Button>
       </CardContent>
       <CardFooter className="justify-center">

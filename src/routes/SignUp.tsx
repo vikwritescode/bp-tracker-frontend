@@ -2,18 +2,26 @@ import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config.ts";
 import { useNavigate, Link } from "react-router-dom";
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "@/components/ui/card";
 import { Label } from "@/components/ui/label.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { Input } from "@/components/ui/input.tsx";
 
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert.tsx";
 import { AlertCircleIcon } from "lucide-react";
+import { Spinner } from "@/components/ui/spinner.tsx";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [load, setLoad] = useState(false);
   const [errorMessage, setErrorMessage] = useState(
     "This should not be visible."
   );
@@ -21,6 +29,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const handleSignUp = async () => {
     try {
+      setLoad(true);
       if (!(password === confirmPassword)) {
         throw new Error("Passwords do not match.");
       }
@@ -35,6 +44,8 @@ const SignUp = () => {
       } else {
         setErrorMessage(String(err));
       }
+    } finally {
+      setLoad(false);
     }
   };
   return (
@@ -75,8 +86,8 @@ const SignUp = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
-        <Button onClick={handleSignUp} className="w-full">
-          Register
+        <Button onClick={handleSignUp} className="w-full" disabled={load}>
+          {load ? <Spinner /> : "Register"}
         </Button>
       </CardContent>
       <CardFooter className="justify-center">
