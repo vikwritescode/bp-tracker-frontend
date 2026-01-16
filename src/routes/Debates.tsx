@@ -150,11 +150,13 @@ const Debates = () => {
               </TableCell>
               <TableCell>
                 <div className="flex flex-wrap gap-1">
-                  {(rec["categories"] || []).map((x: string) => (
-                    <Badge key={x} className="text-xs px-2 py-1 rounded-md">
-                      {x}
-                    </Badge>
-                  ))}
+                  {(rec["categories"] || [])
+                    .filter((x: string) => x)
+                    .map((x: string) => (
+                      <Badge key={x} className="text-xs px-2 py-1 rounded-md">
+                        {x}
+                      </Badge>
+                    ))}
                 </div>
               </TableCell>
               <TableCell onClick={() => handleDeleteClick(rec["id"])}>
