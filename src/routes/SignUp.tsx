@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config.ts";
-import { useNavigate } from "react-router-dom";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useNavigate, Link } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { Input } from "@/components/ui/input.tsx";
@@ -22,7 +22,7 @@ const SignUp = () => {
   const handleSignUp = async () => {
     try {
       if (!(password === confirmPassword)) {
-        throw new Error("Passwords do not match.")
+        throw new Error("Passwords do not match.");
       }
       const user = await createUserWithEmailAndPassword(auth, email, password);
       console.log(user);
@@ -67,7 +67,7 @@ const SignUp = () => {
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="password">Confirm Password</Label>
+          <Label htmlFor="password">Confirm password</Label>
           <Input
             id="confirm-password"
             type="password"
@@ -79,6 +79,12 @@ const SignUp = () => {
           Register
         </Button>
       </CardContent>
+      <CardFooter className="justify-center">
+        Have an account?{" "}
+        <Link to="/signin" className="underline ml-1">
+          Log in
+        </Link>
+      </CardFooter>
     </Card>
   );
 };

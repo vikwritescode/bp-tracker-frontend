@@ -1,11 +1,17 @@
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config.ts";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert.tsx";
 import { AlertCircleIcon } from "lucide-react";
@@ -67,6 +73,12 @@ const SignIn = () => {
           Log in
         </Button>
       </CardContent>
+      <CardFooter className="justify-center">
+        No Account?{" "}
+        <Link to="/signup" className="underline ml-1">
+          Register
+        </Link>
+      </CardFooter>
     </Card>
   );
 };
