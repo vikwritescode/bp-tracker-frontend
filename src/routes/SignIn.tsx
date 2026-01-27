@@ -21,7 +21,7 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(
-    "This should not be visible."
+    "This should not be visible.",
   );
   const [error, setError] = useState(false);
   const [load, setLoad] = useState(false);
@@ -46,45 +46,47 @@ const SignIn = () => {
     }
   };
   return (
-    <Card className="w-full max-w-md mx-auto">
-      <CardHeader>
-        <CardTitle>Log in</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <Alert variant="destructive" hidden={!error}>
-          <AlertCircleIcon className="h-4 w-4" />
-          <AlertTitle className="text-left">Login Error</AlertTitle>
-          <AlertDescription>{errorMessage}</AlertDescription>
-        </Alert>
-        <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            type="email"
-            placeholder="foo@bar.com"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="password">Password</Label>
-          <Input
-            id="password"
-            type="password"
-            placeholder="Enter your password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <Button onClick={handleSignIn} className="w-full" disabled={load}>
-          {load ? <Spinner /> : "Log in"}
-        </Button>
-      </CardContent>
-      <CardFooter className="justify-center">
-        No Account?{" "}
-        <Link to="/signup" className="underline ml-1">
-          Register
-        </Link>
-      </CardFooter>
-    </Card>
+    <div className="w-full px-4 py-6 overflow-x-hidden">
+      <Card className="w-full max-w-md mx-auto">
+        <CardHeader>
+          <CardTitle className="text-2xl">Log in</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <Alert variant="destructive" hidden={!error}>
+            <AlertCircleIcon className="h-4 w-4" />
+            <AlertTitle className="text-left">Login Error</AlertTitle>
+            <AlertDescription>{errorMessage}</AlertDescription>
+          </Alert>
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="foo@bar.com"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <Button onClick={handleSignIn} className="w-full" disabled={load}>
+            {load ? <Spinner /> : "Log in"}
+          </Button>
+        </CardContent>
+        <CardFooter className="justify-center">
+          No Account?{" "}
+          <Link to="/signup" className="underline ml-1">
+            Register
+          </Link>
+        </CardFooter>
+      </Card>
+    </div>
   );
 };
 

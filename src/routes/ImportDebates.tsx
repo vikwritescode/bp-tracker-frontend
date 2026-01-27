@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { Context } from "../context/AuthContext";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Item, ItemTitle, ItemContent } from "@/components/ui/item";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -19,7 +19,7 @@ const ImportDebates = () => {
   const navigate = useNavigate();
 
   const [errorMessage, setErrorMessage] = useState(
-    "There's no error. This message should be hidden."
+    "There's no error. This message should be hidden.",
   );
   const [url, setUrl] = useState("");
   const [slugs, setSlugs] = useState([]);
@@ -57,7 +57,7 @@ const ImportDebates = () => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -85,9 +85,9 @@ const ImportDebates = () => {
       setNameError(false);
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/speakers?url=${encodeURIComponent(
-          url
+          url,
         )}&slug=${encodeURIComponent(
-          selectedSlug
+          selectedSlug,
         )}&speaker=${encodeURIComponent(searchName)}`,
         {
           method: "GET",
@@ -95,7 +95,7 @@ const ImportDebates = () => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -136,7 +136,7 @@ const ImportDebates = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(reqData),
-        }
+        },
       );
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -154,15 +154,15 @@ const ImportDebates = () => {
     }
   };
   return (
-    <>
-      <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold">
-        Import from URL
-      </h1>
-
-      <div className="grid gap-6 lg:grid-cols-2">
+    <div className="w-full px-4 py-6 overflow-x-hidden">
+      <div className="grid gap-6 lg:grid-cols-2 py-6">
         {/* Card 1: Tournaments */}
         <Card>
-          <CardHeader>Find Tournaments from URL</CardHeader>
+          <CardHeader>
+            <CardTitle className="text-2xl">
+              Find Tournaments from URL
+            </CardTitle>
+          </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex flex-col sm:flex-row gap-3">
               <Input
@@ -230,7 +230,11 @@ const ImportDebates = () => {
 
         {/* Card 2: Speakers + Date + Import */}
         <Card hidden={!(!load && fetchedTournaments)}>
-          <CardHeader>Find Speaker From Name</CardHeader>
+          <CardHeader>
+            <CardTitle className="text-2xl">
+              Find Speaker From Name
+            </CardTitle>
+          </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex flex-col sm:flex-row gap-3">
               <Input
@@ -325,7 +329,7 @@ const ImportDebates = () => {
           </CardContent>
         </Card>
       </div>
-    </>
+    </div>
   );
 };
 

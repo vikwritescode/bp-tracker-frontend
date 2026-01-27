@@ -53,7 +53,7 @@ const AddDebate = () => {
       points: parseInt(points),
       speaks: parseInt(speaks),
       infoslide: infoSlide,
-      motion: motion
+      motion: motion,
     };
     const valid = ["OG", "OO", "CG", "CO"];
     if (
@@ -67,14 +67,17 @@ const AddDebate = () => {
         setLoad(true);
         setError(false);
         setDataValidError(false);
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/add`, {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/add`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(debateData),
           },
-          body: JSON.stringify(debateData),
-        });
+        );
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
@@ -93,126 +96,132 @@ const AddDebate = () => {
     }
   };
   return (
-    <Card className="mx-auto max-w-xl">
-      <CardHeader>
-        <CardTitle className="text-xl font-semibold">
-          Manually Add Debate
-        </CardTitle>
-      </CardHeader>
+    <div className="w-full px-4 py-6 overflow-x-hidden">
+      <div>
+        <Card className="mx-auto max-w-xl">
+          <CardHeader>
+            <CardTitle className="text-3xl font-semibold">
+              Manually Add Debate
+            </CardTitle>
+          </CardHeader>
 
-      <CardContent className="space-y-6">
-        <Alert variant="destructive" hidden={!dataValidError}>
-          <AlertCircleIcon className="h-4 w-4" />
-          <AlertTitle className="text-left">Invalid Credentials</AlertTitle>
-          <AlertDescription>Make sure your entry is valid.</AlertDescription>
-        </Alert>
-        <Alert variant="destructive" hidden={!error}>
-          <AlertCircleIcon className="h-4 w-4" />
-          <AlertTitle className="text-left">Oopsie Woopsie</AlertTitle>
-          <AlertDescription>The API fumbled.</AlertDescription>
-        </Alert>
-        {/* 1 column on mobile, 2×2 on sm+ */}
-        <div className="grid gap-4 sm:grid-cols-2">
-          {/* Date */}
-          <div className="space-y-1.5">
-            <h3 className="text-sm font-medium">Date</h3>
-            <Popover open={open} onOpenChange={setOpen}>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="h-9 w-full justify-start text-left text-sm"
-                >
-                  {date ? date.toLocaleDateString() : "Pick a date"}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="p-0">
-                <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={(d) => {
-                    if (!d) return;
-                    setDate(d);
-                    setOpen(false);
-                  }}
+          <CardContent className="space-y-6">
+            <Alert variant="destructive" hidden={!dataValidError}>
+              <AlertCircleIcon className="h-4 w-4" />
+              <AlertTitle className="text-left">Invalid Credentials</AlertTitle>
+              <AlertDescription>
+                Make sure your entry is valid.
+              </AlertDescription>
+            </Alert>
+            <Alert variant="destructive" hidden={!error}>
+              <AlertCircleIcon className="h-4 w-4" />
+              <AlertTitle className="text-left">Oopsie Woopsie</AlertTitle>
+              <AlertDescription>The API fumbled.</AlertDescription>
+            </Alert>
+            {/* 1 column on mobile, 2×2 on sm+ */}
+            <div className="grid gap-4 sm:grid-cols-2">
+              {/* Date */}
+              <div className="space-y-1.5">
+                <h3 className="text-sm font-medium">Date</h3>
+                <Popover open={open} onOpenChange={setOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className="h-9 w-full justify-start text-left text-sm"
+                    >
+                      {date ? date.toLocaleDateString() : "Pick a date"}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="p-0">
+                    <Calendar
+                      mode="single"
+                      selected={date}
+                      onSelect={(d) => {
+                        if (!d) return;
+                        setDate(d);
+                        setOpen(false);
+                      }}
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
+
+              {/* Position */}
+              <div className="space-y-1.5">
+                <h3 className="text-sm font-medium">Position</h3>
+                <Select value={pos} onValueChange={setPos}>
+                  <SelectTrigger className="h-9 w-full text-sm">
+                    <SelectValue placeholder="Position" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="OG">OG</SelectItem>
+                    <SelectItem value="OO">OO</SelectItem>
+                    <SelectItem value="CG">CG</SelectItem>
+                    <SelectItem value="CO">CO</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Points */}
+              <div className="space-y-1.5">
+                <h3 className="text-sm font-medium">Points</h3>
+                <Input
+                  type="number"
+                  inputMode="numeric"
+                  min={0}
+                  max={3}
+                  value={points}
+                  onChange={(e) => setPoints(e.target.value)}
+                  className="h-9 w-full px-2 text-sm"
+                  placeholder="0–3"
                 />
-              </PopoverContent>
-            </Popover>
-          </div>
+              </div>
 
-          {/* Position */}
-          <div className="space-y-1.5">
-            <h3 className="text-sm font-medium">Position</h3>
-            <Select value={pos} onValueChange={setPos}>
-              <SelectTrigger className="h-9 w-full text-sm">
-                <SelectValue placeholder="Position" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="OG">OG</SelectItem>
-                <SelectItem value="OO">OO</SelectItem>
-                <SelectItem value="CG">CG</SelectItem>
-                <SelectItem value="CO">CO</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+              {/* Speaks */}
+              <div className="space-y-1.5">
+                <h3 className="text-sm font-medium">Speaks</h3>
+                <Input
+                  type="number"
+                  inputMode="decimal"
+                  min={50}
+                  max={100}
+                  value={speaks}
+                  onChange={(e) => setSpeaks(e.target.value)}
+                  className="h-9 w-full px-2 text-sm"
+                  placeholder="50–100"
+                />
+              </div>
+            </div>
 
-          {/* Points */}
-          <div className="space-y-1.5">
-            <h3 className="text-sm font-medium">Points</h3>
-            <Input
-              type="number"
-              inputMode="numeric"
-              min={0}
-              max={3}
-              value={points}
-              onChange={(e) => setPoints(e.target.value)}
-              className="h-9 w-full px-2 text-sm"
-              placeholder="0–3"
-            />
-          </div>
+            <div className="space-y-1.5">
+              <h3 className="text-sm font-medium">Info Slide</h3>
+              <Textarea
+                value={infoSlide}
+                onChange={(e) => setInfoSlide(e.target.value)}
+                className="min-h-[80px] w-full text-sm resize-y"
+                placeholder="Info Slide"
+              />
+            </div>
 
-          {/* Speaks */}
-          <div className="space-y-1.5">
-            <h3 className="text-sm font-medium">Speaks</h3>
-            <Input
-              type="number"
-              inputMode="decimal"
-              min={50}
-              max={100}
-              value={speaks}
-              onChange={(e) => setSpeaks(e.target.value)}
-              className="h-9 w-full px-2 text-sm"
-              placeholder="50–100"
-            />
-          </div>
-        </div>
+            <div className="space-y-1.5">
+              <h3 className="text-sm font-medium">Motion</h3>
+              <Textarea
+                value={motion}
+                onChange={(e) => setMotion(e.target.value)}
+                className="min-h-[80px] w-full text-sm resize-y"
+                placeholder="Motion"
+              />
+            </div>
+          </CardContent>
 
-        <div className="space-y-1.5">
-          <h3 className="text-sm font-medium">Info Slide</h3>
-          <Textarea
-            value={infoSlide}
-            onChange={(e) => setInfoSlide(e.target.value)}
-            className="min-h-[80px] w-full text-sm resize-y"
-            placeholder="Info Slide"
-          />
-        </div>
-
-        <div className="space-y-1.5">
-          <h3 className="text-sm font-medium">Motion</h3>
-          <Textarea
-            value={motion}
-            onChange={(e) => setMotion(e.target.value)}
-            className="min-h-[80px] w-full text-sm resize-y"
-            placeholder="Motion"
-          />
-        </div>
-      </CardContent>
-
-      <CardAction className="flex justify-end px-6 pb-4">
-        <Button onClick={handleAdd} disabled={load} size="sm">
-          {load ? <Spinner /> : "Add Debate"}
-        </Button>
-      </CardAction>
-    </Card>
+          <CardAction className="flex justify-end px-6 pb-4">
+            <Button onClick={handleAdd} disabled={load} size="sm">
+              {load ? <Spinner /> : "Add Debate"}
+            </Button>
+          </CardAction>
+        </Card>
+      </div>
+    </div>
   );
 };
 
