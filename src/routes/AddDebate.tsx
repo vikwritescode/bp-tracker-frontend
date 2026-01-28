@@ -100,9 +100,7 @@ const AddDebate = () => {
       <div>
         <Card className="mx-auto max-w-xl">
           <CardHeader>
-            <CardTitle className="text-3xl font-semibold">
-              Manually Add Debate
-            </CardTitle>
+            <CardTitle className="text-3xl font-semibold">Add Debate</CardTitle>
           </CardHeader>
 
           <CardContent className="space-y-6">
