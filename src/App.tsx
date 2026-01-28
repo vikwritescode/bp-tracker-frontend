@@ -9,6 +9,7 @@ import Layout from "./routes/Layout";
 import Debates from "./routes/Debates";
 import ImportDebates from "./routes/ImportDebates";
 import AddDebate from "./routes/AddDebate";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const router = createBrowserRouter([
   {
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
           <ProtectedRoute>
             <ImportDebates />
           </ProtectedRoute>
-        )
+        ),
       },
       {
         path: "add",
@@ -53,17 +54,19 @@ const router = createBrowserRouter([
           <ProtectedRoute>
             <AddDebate />
           </ProtectedRoute>
-        )
-      }
+        ),
+      },
     ],
   },
 ]);
 
 function App() {
   return (
-    <AuthContext>
-      <RouterProvider router={router} />
-    </AuthContext>
+    <ThemeProvider>
+      <AuthContext>
+        <RouterProvider router={router} />
+      </AuthContext>
+    </ThemeProvider>
   );
 }
 

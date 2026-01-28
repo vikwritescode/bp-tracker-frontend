@@ -23,7 +23,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [load, setLoad] = useState(false);
   const [errorMessage, setErrorMessage] = useState(
-    "This should not be visible."
+    "This should not be visible.",
   );
   const [error, setError] = useState(false);
   const navigate = useNavigate();
@@ -49,54 +49,56 @@ const SignUp = () => {
     }
   };
   return (
-    <Card className="w-full max-w-md mx-auto">
-      <CardHeader>
-        <CardTitle>Register</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="space-y-2">
-          <Alert variant="destructive" hidden={!error}>
-            <AlertCircleIcon className="h-4 w-4" />
-            <AlertTitle className="text-left">Registration Error</AlertTitle>
-            <AlertDescription>{errorMessage}</AlertDescription>
-          </Alert>
-          <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            type="email"
-            placeholder="foo@bar.com"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="password">Password</Label>
-          <Input
-            id="password"
-            type="password"
-            placeholder="Enter your password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="password">Confirm password</Label>
-          <Input
-            id="confirm-password"
-            type="password"
-            placeholder="Confirm password"
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </div>
-        <Button onClick={handleSignUp} className="w-full" disabled={load}>
-          {load ? <Spinner /> : "Register"}
-        </Button>
-      </CardContent>
-      <CardFooter className="justify-center">
-        Have an account?{" "}
-        <Link to="/signin" className="underline ml-1">
-          Log in
-        </Link>
-      </CardFooter>
-    </Card>
+    <div className="w-full px-4 py-6 overflow-x-hidden">
+      <Card className="w-full max-w-md mx-auto">
+        <CardHeader>
+          <CardTitle className="text-2xl">Register</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Alert variant="destructive" hidden={!error}>
+              <AlertCircleIcon className="h-4 w-4" />
+              <AlertTitle className="text-left">Registration Error</AlertTitle>
+              <AlertDescription>{errorMessage}</AlertDescription>
+            </Alert>
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="foo@bar.com"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="password">Confirm password</Label>
+            <Input
+              id="confirm-password"
+              type="password"
+              placeholder="Confirm password"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>
+          <Button onClick={handleSignUp} className="w-full" disabled={load}>
+            {load ? <Spinner /> : "Register"}
+          </Button>
+        </CardContent>
+        <CardFooter className="justify-center">
+          Have an account?{" "}
+          <Link to="/signin" className="underline ml-1">
+            Log in
+          </Link>
+        </CardFooter>
+      </Card>
+    </div>
   );
 };
 

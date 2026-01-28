@@ -38,7 +38,7 @@ const Debates = () => {
           {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
-          }
+          },
         );
         const json = await response.json();
         console.log(json);
@@ -64,7 +64,7 @@ const Debates = () => {
           headers: {
             ...(token ? { Authorization: `Bearer ${token}` } : {}),
           },
-        }
+        },
       );
       if (!response.ok) {
         console.log(load);
@@ -83,7 +83,7 @@ const Debates = () => {
 
   if (error) {
     return (
-      <>
+      <div className="w-full px-4 py-6 overflow-x-hidden">
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold">
           Your Debates
         </h1>
@@ -92,88 +92,90 @@ const Debates = () => {
           <AlertTitle className="text-left">Error Fetching Data</AlertTitle>
           <AlertDescription>Please reload the page.</AlertDescription>
         </Alert>
-      </>
+      </div>
     );
   }
 
   return (
-    <>
+    <div className="w-full px-4 py-6 overflow-x-hidden">
       <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold">
         Your Debates
       </h1>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Date</TableHead>
-            <TableHead>Position</TableHead>
-            <TableHead>Points</TableHead>
-            <TableHead>Speaks</TableHead>
-            <TableHead>Info Slide</TableHead>
-            <TableHead>Motion</TableHead>
-            <TableHead>Type</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {debateArr.map((rec: DebateRecord, i) => (
+      <div className="py-4">
+        <Table>
+          <TableHeader>
             <TableRow>
-              <TableCell>{rec["date"]}</TableCell>
-              <TableCell>{rec["position"]}</TableCell>
-              <TableCell>{rec["points"]}</TableCell>
-              <TableCell>{rec["speaks"]}</TableCell>
-              <TableCell>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button variant="ghost">
-                      <InfoIcon />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="max-w-md max-h-[400px] overflow-y-auto">
-                    <p className="text-sm whitespace-pre-wrap">
-                      {rec["infoslide"]}
-                    </p>
-                  </PopoverContent>
-                </Popover>
-              </TableCell>
-              <TableCell>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button variant="ghost">
-                      <InfoIcon />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="max-w-md max-h-[400px] overflow-y-auto">
-                    <p className="text-sm whitespace-pre-wrap">
-                      {rec["motion"]}
-                    </p>
-                  </PopoverContent>
-                </Popover>
-              </TableCell>
-              <TableCell>
-                <div className="flex flex-wrap gap-1">
-                  {(rec["categories"] || [])
-                    .filter((x: string) => x)
-                    .map((x: string) => (
-                      <Badge key={x} className="text-xs px-2 py-1 rounded-md">
-                        {x}
-                      </Badge>
-                    ))}
-                </div>
-              </TableCell>
-              <TableCell onClick={() => handleDeleteClick(rec["id"])}>
-                <Button
-                  disabled={loads[i]}
-                  variant="ghost"
-                  size="icon"
-                  className="text-destructive hover:text-destructive hover:bg-destructive/10"
-                >
-                  {loads[i] ? <Spinner /> : <Trash />}
-                </Button>
-              </TableCell>
+              <TableHead>Date</TableHead>
+              <TableHead>Position</TableHead>
+              <TableHead>Points</TableHead>
+              <TableHead>Speaks</TableHead>
+              <TableHead>Info Slide</TableHead>
+              <TableHead>Motion</TableHead>
+              <TableHead>Type</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </>
+          </TableHeader>
+          <TableBody>
+            {debateArr.map((rec: DebateRecord, i) => (
+              <TableRow>
+                <TableCell>{rec["date"]}</TableCell>
+                <TableCell>{rec["position"]}</TableCell>
+                <TableCell>{rec["points"]}</TableCell>
+                <TableCell>{rec["speaks"]}</TableCell>
+                <TableCell>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="ghost">
+                        <InfoIcon />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="max-w-md max-h-[400px] overflow-y-auto">
+                      <p className="text-sm whitespace-pre-wrap">
+                        {rec["infoslide"]}
+                      </p>
+                    </PopoverContent>
+                  </Popover>
+                </TableCell>
+                <TableCell>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="ghost">
+                        <InfoIcon />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="max-w-md max-h-[400px] overflow-y-auto">
+                      <p className="text-sm whitespace-pre-wrap">
+                        {rec["motion"]}
+                      </p>
+                    </PopoverContent>
+                  </Popover>
+                </TableCell>
+                <TableCell>
+                  <div className="flex flex-wrap gap-1">
+                    {(rec["categories"] || [])
+                      .filter((x: string) => x)
+                      .map((x: string) => (
+                        <Badge key={x} className="text-xs px-2 py-1 rounded-md">
+                          {x}
+                        </Badge>
+                      ))}
+                  </div>
+                </TableCell>
+                <TableCell onClick={() => handleDeleteClick(rec["id"])}>
+                  <Button
+                    disabled={loads[i]}
+                    variant="ghost"
+                    size="icon"
+                    className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                  >
+                    {loads[i] ? <Spinner /> : <Trash />}
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </div>
   );
 };
 
