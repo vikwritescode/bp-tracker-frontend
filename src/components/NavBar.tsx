@@ -127,7 +127,7 @@ const NavBar = () => {
                 <SheetHeader className="text-left">
                 <SheetTitle>Menu</SheetTitle>
                 </SheetHeader>
-                <div className="flex flex-col gap-4 py-6 flex-1">
+                <div className="flex flex-col gap-4 py-6 flex-1 ml-6">
                     <SheetClose asChild>
                         <NavLink to="/" className="text-base font-medium hover:text-primary">
                         Dashboard
