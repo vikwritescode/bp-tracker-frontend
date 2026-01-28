@@ -122,6 +122,7 @@ const Debates = () => {
                 <TableCell>{rec["points"]}</TableCell>
                 <TableCell>{rec["speaks"]}</TableCell>
                 <TableCell>
+                  {(rec["infoslide"] === "") ? (<></>) : (
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button variant="ghost">
@@ -134,6 +135,7 @@ const Debates = () => {
                       </p>
                     </PopoverContent>
                   </Popover>
+                  )}
                 </TableCell>
                 <TableCell>
                   <Popover>
