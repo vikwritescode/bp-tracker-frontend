@@ -1,4 +1,5 @@
-# BP Tracker Frontend
+# Derivative 
+An Open Source BP Debate Tracker
 
 ## What is this repo?
 This is the frontend code for my BP debate tracker, built with react and vite. This fetches and generates records using an API, and interfaces with firebase to provide signin functionality. 
