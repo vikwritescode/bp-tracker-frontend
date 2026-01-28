@@ -160,7 +160,7 @@ const ImportDebates = () => {
         <Card>
           <CardHeader>
             <CardTitle className="text-2xl">
-              Find Tournaments from URL
+              Find from URL
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -207,10 +207,10 @@ const ImportDebates = () => {
                     <Item
                       key={x.slug}
                       variant="outline"
-                      className={`mt-2 cursor-pointer transition ring-offset-2 ${
+                      className={`mt-2 cursor-pointer transition ${
                         selectedSlug === x.slug
-                          ? "ring-2 ring-blue-500"
-                          : "hover:bg-accent"
+                          ? "border-primary border-3 bg-accent/10"
+                          : "hover:bg-accent/50"
                       }`}
                       onClick={() => setSelectedSlug(x.slug)}
                       asChild
@@ -231,9 +231,7 @@ const ImportDebates = () => {
         {/* Card 2: Speakers + Date + Import */}
         <Card hidden={!(!load && fetchedTournaments)}>
           <CardHeader>
-            <CardTitle className="text-2xl">
-              Find Speaker From Name
-            </CardTitle>
+            <CardTitle className="text-2xl">Find Speaker</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex flex-col sm:flex-row gap-3">
@@ -282,8 +280,8 @@ const ImportDebates = () => {
                         variant="outline"
                         className={`mt-2 cursor-pointer transition ring-offset-2 ${
                           selectedName === x["url"]
-                            ? "ring-2 ring-blue-500"
-                            : "hover:bg-accent"
+                            ? "border-primary border-3 bg-accent/10"
+                            : "hover:bg-accent/50"
                         }`}
                         onClick={() => setSelectedName(x["url"])}
                         asChild
