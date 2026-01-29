@@ -32,7 +32,7 @@ const PositionWisePointCard = ({ debateData }: PositionWidePointCardProps) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Points By Positon</CardTitle>
+        <CardTitle>Points by Position</CardTitle>
       </CardHeader>
       <CardContent>
         <Table>

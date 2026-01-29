@@ -27,7 +27,7 @@ const SpeaksByTopicCard = ({ debateData }: SpeaksByTopicCardProps) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Speaks By Topic</CardTitle>
+        <CardTitle>Speaks by Topic</CardTitle>
       </CardHeader>
       <CardContent>
         <Table>

@@ -27,7 +27,7 @@ const PointsByTopicCard = ({ debateData }: PointsByTopicCardProps) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Points By Topic</CardTitle>
+        <CardTitle>Points by Topic</CardTitle>
       </CardHeader>
       <CardContent>
         <Table>

@@ -69,24 +69,24 @@ const NavBar = () => {
                     </NavigationMenuLink>
                   </NavigationMenuItem>
                   <NavigationMenuItem>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <NavigationMenuLink className="whitespace-nowrap overflow-hidden text-ellipsis">
-                          Add Records
-                        </NavigationMenuLink>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent
-                        align="end"
-                        className="w-48 max-w-full"
+                    <NavigationMenuLink asChild>
+                      <NavLink 
+                        to="/add"
+                        className="whitespace-nowrap overflow-hidden text-ellipssis"
                       >
-                        <DropdownMenuItem asChild>
-                          <NavLink to="/add">Add Debate Manually</NavLink>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                          <NavLink to="/import">Import from Tab URL</NavLink>
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                        Add Debate
+                      </NavLink>
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem>
+                    <NavigationMenuLink asChild>
+                      <NavLink 
+                        to="/import"
+                        className="whitespace-nowrap overflow-hidden text-ellipssis"
+                      >
+                        Import Tab
+                      </NavLink>
+                    </NavigationMenuLink>
                   </NavigationMenuItem>
                 </>
               )}
