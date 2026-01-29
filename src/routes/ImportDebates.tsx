@@ -169,6 +169,10 @@ const ImportDebates = () => {
                 onChange={(e) => setUrl(e.target.value)}
                 placeholder="Tab URL"
                 className="flex-1"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter")
+                    handleSlugFetch();
+                  }}
               />
               <Button
                 onClick={handleSlugFetch}
@@ -239,6 +243,10 @@ const ImportDebates = () => {
                 onChange={(e) => setSearchName(e.target.value)}
                 placeholder="Speaker Name"
                 className="flex-1"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter")
+                    handleSpeakerFetch();
+                  }}
               />
               <Button
                 onClick={handleSpeakerFetch}
