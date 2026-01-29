@@ -80,7 +80,7 @@ const SignIn = () => {
           </Button>
         </CardContent>
         <CardFooter className="justify-center">
-          No Account?{" "}
+          No account?{" "}
           <Link to="/signup" className="underline ml-1">
             Register
           </Link>

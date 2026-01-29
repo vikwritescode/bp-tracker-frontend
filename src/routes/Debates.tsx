@@ -89,7 +89,7 @@ const Debates = () => {
         </h1>
         <Alert variant="destructive">
           <AlertCircleIcon className="h-4 w-4" />
-          <AlertTitle className="text-left">Error Fetching Data</AlertTitle>
+          <AlertTitle className="text-left mb-1">Error fetching data</AlertTitle>
           <AlertDescription>Please reload the page.</AlertDescription>
         </Alert>
       </div>

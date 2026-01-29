@@ -70,7 +70,7 @@ const SignUp = () => {
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">Password (at least 6 characters)</Label>
             <Input
               id="password"
               type="password"
@@ -83,7 +83,7 @@ const SignUp = () => {
             <Input
               id="confirm-password"
               type="password"
-              placeholder="Confirm password"
+              placeholder="Confirm your password"
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>

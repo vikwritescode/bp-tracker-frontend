@@ -106,10 +106,10 @@ const NavBar = () => {
               ) : (
                 <>
                   <DropdownMenuItem asChild>
-                    <NavLink to="/signin">Sign In</NavLink>
+                    <NavLink to="/signin">Log in</NavLink>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <NavLink to="/signup">Sign Up</NavLink>
+                    <NavLink to="/signup">Register</NavLink>
                   </DropdownMenuItem>
                 </>
               )}
@@ -169,12 +169,12 @@ const NavBar = () => {
                     <div className="flex flex-col gap-3">
                     <SheetClose asChild>
                         <Button asChild className="w-full">
-                        <NavLink to="/signin">Sign In</NavLink>
+                        <NavLink to="/signin">Log in</NavLink>
                         </Button>
                     </SheetClose>
                     <SheetClose asChild>
                         <Button variant="outline" asChild className="w-full">
-                        <NavLink to="/signup">Sign Up</NavLink>
+                        <NavLink to="/signup">Register</NavLink>
                         </Button>
                     </SheetClose>
                     </div>
