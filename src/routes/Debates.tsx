@@ -114,7 +114,7 @@ const Debates = () => {
               <TableHead>Type</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
+          <TableBody className="text-left">
             {debateArr.map((rec: DebateRecord, i) => (
               <TableRow>
                 <TableCell>{rec["date"]}</TableCell>
