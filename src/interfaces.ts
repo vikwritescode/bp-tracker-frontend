@@ -8,4 +8,5 @@ export interface DebateRecord {
   infoslide: string;
   motion: string;
   categories: Array<string>;
+  tournament: string;
 }

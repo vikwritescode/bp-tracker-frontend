@@ -106,6 +106,7 @@ const Debates = () => {
           <TableHeader>
             <TableRow>
               <TableHead>Date</TableHead>
+              <TableHead>Tournament</TableHead>
               <TableHead>Position</TableHead>
               <TableHead>Points</TableHead>
               <TableHead>Speaks</TableHead>
@@ -118,6 +119,7 @@ const Debates = () => {
             {debateArr.map((rec: DebateRecord, i) => (
               <TableRow>
                 <TableCell>{rec["date"]}</TableCell>
+                <TableCell>{rec["tournament"]}</TableCell>
                 <TableCell>{rec["position"]}</TableCell>
                 <TableCell>{rec["points"]}</TableCell>
                 <TableCell>{rec["speaks"]}</TableCell>
