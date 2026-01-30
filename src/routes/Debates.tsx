@@ -89,7 +89,9 @@ const Debates = () => {
         </h1>
         <Alert variant="destructive">
           <AlertCircleIcon className="h-4 w-4" />
-          <AlertTitle className="text-left mb-1">Error fetching data</AlertTitle>
+          <AlertTitle className="text-left mb-1">
+            Error fetching data
+          </AlertTitle>
           <AlertDescription>Please reload the page.</AlertDescription>
         </Alert>
       </div>
@@ -118,25 +120,29 @@ const Debates = () => {
           <TableBody>
             {debateArr.map((rec: DebateRecord, i) => (
               <TableRow>
-                <TableCell>{rec["date"]}</TableCell>
+                <TableCell>
+                  {rec["date"] == null ? rec["legacy_date"] : rec["date"]}
+                </TableCell>
                 <TableCell>{rec["tournament"]}</TableCell>
                 <TableCell>{rec["position"]}</TableCell>
                 <TableCell>{rec["points"]}</TableCell>
                 <TableCell>{rec["speaks"]}</TableCell>
                 <TableCell>
-                  {(rec["infoslide"] === "") ? (<></>) : (
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button variant="ghost">
-                        <InfoIcon />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="max-w-md max-h-[400px] overflow-y-auto">
-                      <p className="text-sm whitespace-pre-wrap">
-                        {rec["infoslide"]}
-                      </p>
-                    </PopoverContent>
-                  </Popover>
+                  {rec["infoslide"] === "" ? (
+                    <></>
+                  ) : (
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button variant="ghost">
+                          <InfoIcon />
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="max-w-md max-h-[400px] overflow-y-auto">
+                        <p className="text-sm whitespace-pre-wrap">
+                          {rec["infoslide"]}
+                        </p>
+                      </PopoverContent>
+                    </Popover>
                   )}
                 </TableCell>
                 <TableCell>

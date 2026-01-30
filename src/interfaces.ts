@@ -2,6 +2,7 @@ export interface DebateRecord {
   id: number;
   uid: string;
   date: string;
+  legacy_date: string;
   position: string;
   points: number;
   speaks: number;
