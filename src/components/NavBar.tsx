@@ -42,7 +42,7 @@ const NavBar = () => {
   return (
     <>
       <div className="w-full border-b overflow-x-hidden">
-        <div className="hidden mx-auto md:flex max-w-7xl items-center justify-between px-4 sm:px-6 py-3">
+        <div className="hidden mx-auto md:flex max-w-7xl items-center justify-between px-4 sm:px-6 pb-3">
           <NavigationMenu>
             <NavigationMenuList className="flex gap-4">
               <NavigationMenuItem>
@@ -101,7 +101,7 @@ const NavBar = () => {
             <DropdownMenuContent align="end" className="w-48 max-w-full">
               {user ? (
                 <DropdownMenuItem onClick={handleSignOut}>
-                  Sign Out
+                  Sign out
                 </DropdownMenuItem>
               ) : (
                 <>
@@ -135,17 +135,17 @@ const NavBar = () => {
                     </SheetClose>
                     <SheetClose asChild>
                         <NavLink to="/debates" className="text-base font-medium hover:text-primary">
-                        Your Debates
-                        </NavLink>
-                    </SheetClose>
-                    <SheetClose asChild>
-                        <NavLink to="/import" className="text-base font-medium hover:text-primary">
-                        Import from URL
+                        Debates
                         </NavLink>
                     </SheetClose>
                     <SheetClose asChild>
                         <NavLink to="/add" className="text-base font-medium hover:text-primary">
-                        Add Debate Manually
+                        Add Debate
+                        </NavLink>
+                    </SheetClose>
+                    <SheetClose asChild>
+                        <NavLink to="/import" className="text-base font-medium hover:text-primary">
+                        Import Tab
                         </NavLink>
                     </SheetClose>
                 </div>
