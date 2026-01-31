@@ -42,7 +42,7 @@ const NavBar = () => {
   return (
     <>
       <div className="w-full border-b overflow-x-hidden">
-        <div className="hidden mx-auto md:flex max-w-7xl items-center justify-between px-4 sm:px-6 py-3">
+        <div className="hidden mx-auto md:flex max-w-7xl items-center justify-between px-4 sm:px-6 pb-3">
           <NavigationMenu>
             <NavigationMenuList className="flex gap-4">
               <NavigationMenuItem>
@@ -94,7 +94,7 @@ const NavBar = () => {
                         to="/import"
                         className="whitespace-nowrap overflow-hidden text-ellipssis"
                       >
-                        Import Tab
+                        Add Tab
                       </NavLink>
                     </NavigationMenuLink>
                   </NavigationMenuItem>
@@ -111,7 +111,7 @@ const NavBar = () => {
             <DropdownMenuContent align="end" className="w-48 max-w-full">
               {user ? (
                 <DropdownMenuItem onClick={handleSignOut}>
-                  Sign Out
+                  Sign out
                 </DropdownMenuItem>
               ) : (
                 <>
@@ -151,15 +151,7 @@ const NavBar = () => {
                     to="/debates"
                     className="text-base font-medium hover:text-primary"
                   >
-                    Your Debates
-                  </NavLink>
-                </SheetClose>
-                <SheetClose asChild>
-                  <NavLink
-                    to="/import"
-                    className="text-base font-medium hover:text-primary"
-                  >
-                    Import from URL
+                    Debates
                   </NavLink>
                 </SheetClose>
                 <SheetClose asChild>
@@ -167,7 +159,7 @@ const NavBar = () => {
                     to="/add"
                     className="text-base font-medium hover:text-primary"
                   >
-                    Add Debate Manually
+                    Add Debate
                   </NavLink>
                 </SheetClose>
                 <SheetClose asChild>
@@ -175,10 +167,19 @@ const NavBar = () => {
                     to="/add-tournaments"
                     className="text-base font-medium hover:text-primary"
                   >
-                    Add Tournament Manually
+                    Add Tournament
+                  </NavLink>
+                </SheetClose>
+                <SheetClose asChild>
+                  <NavLink
+                    to="/import"
+                    className="text-base font-medium hover:text-primary"
+                  >
+                    Add Tab
                   </NavLink>
                 </SheetClose>
               </div>
+
               <div className="border-t pt-4 mt-auto mb-6 mr-2">
                 {user ? (
                   <div className="flex flex-col gap-2">
