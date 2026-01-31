@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../context/AuthContext";
+import PieChartPositionCard from "@/components/dashboard-cards/PieChartPositionCard";
 import PieChartPointCard from "@/components/dashboard-cards/PieChartPointCard";
-import PositionWisePointCard from "@/components/dashboard-cards/PositionWisePointCard";
 import PointsByTopicCard from "@/components/dashboard-cards/PointsByTopicCard";
 import SpeaksByTopicCard from "@/components/dashboard-cards/SpeaksByTopicCard";
 import AverageSpeaksCard from "@/components/dashboard-cards/AverageSpeaksCard";
@@ -77,12 +77,39 @@ const Dashboard = () => {
         <>
           <div className="grid grid-cols-1 gap-6 mt-6">
             <AverageSpeaksCard debateData={debateArr} />
-            <PositionWisePointCard debateData={debateArr} />
           </div>
 
           <div className="mt-8">
             <h2 className="text-3xl sm:text-4xl font-semibold">
-              By Team Points
+              Positions
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+              <PieChartPositionCard
+                title="OG"
+                debateData={debateArr}
+                position="OG"
+              />
+              <PieChartPositionCard
+                title="OO"
+                debateData={debateArr}
+                position="OO"
+              />
+              <PieChartPositionCard
+                title="CG"
+                debateData={debateArr}
+                position="CG"
+              />
+              <PieChartPositionCard
+                title="CO"
+                debateData={debateArr}
+                position="CO"
+              />
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <h2 className="text-3xl sm:text-4xl font-semibold">
+              Points
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
               <PieChartPointCard
