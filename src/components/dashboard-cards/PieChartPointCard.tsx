@@ -24,7 +24,7 @@ const PieChartPointCard = ({
     },
     OO: {
       label: "OO",
-      color: "#f76c26",
+      color: "#ffb84d",
     },
     CG: {
       label: "CG",
@@ -32,7 +32,7 @@ const PieChartPointCard = ({
     },
     CO: {
       label: "CO",
-      color: "#ffb84d",
+      color: "#f76c26",
     },
   } satisfies ChartConfig;
   const chartData = [
