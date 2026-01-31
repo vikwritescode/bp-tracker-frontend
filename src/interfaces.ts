@@ -11,3 +11,9 @@ export interface DebateRecord {
   categories: Array<string>;
   tournament: string;
 }
+
+export interface TournamentRecord {
+  id: number;
+  name: string;
+  date: string;
+}
