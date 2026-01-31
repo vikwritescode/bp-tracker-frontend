@@ -70,7 +70,7 @@ const NavBar = () => {
                   </NavigationMenuItem>
                   <NavigationMenuItem>
                     <NavigationMenuLink asChild>
-                      <NavLink 
+                      <NavLink
                         to="/add"
                         className="whitespace-nowrap overflow-hidden text-ellipssis"
                       >
@@ -80,7 +80,17 @@ const NavBar = () => {
                   </NavigationMenuItem>
                   <NavigationMenuItem>
                     <NavigationMenuLink asChild>
-                      <NavLink 
+                      <NavLink
+                        to="/add-tournaments"
+                        className="whitespace-nowrap overflow-hidden text-ellipssis"
+                      >
+                        Add Tournament
+                      </NavLink>
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem>
+                    <NavigationMenuLink asChild>
+                      <NavLink
                         to="/import"
                         className="whitespace-nowrap overflow-hidden text-ellipssis"
                       >
@@ -117,14 +127,14 @@ const NavBar = () => {
           </DropdownMenu>
         </div>
         <div className="flex items-rcenter justify-end p-4 md:hidden">
-            <Sheet>
+          <Sheet>
             <SheetTrigger asChild>
-                <Button variant="outline" size="icon">
+              <Button variant="outline" size="icon">
                 <Menu className="h-5 w-5" />
-                </Button>
+              </Button>
             </SheetTrigger>
             <SheetContent side="right" className="flex flex-col h-full">
-                <SheetHeader className="text-left">
+              <SheetHeader className="text-left">
                 <SheetTitle>Menu</SheetTitle>
                 </SheetHeader>
                 <div className="flex flex-col gap-4 py-6 flex-1 ml-6">
@@ -150,38 +160,82 @@ const NavBar = () => {
                     </SheetClose>
                 </div>
                 <div className="border-t pt-4 mt-auto mb-6 mr-2">
+              </SheetHeader>
+              <div className="flex flex-col gap-4 py-6 flex-1 ml-6">
+                <SheetClose asChild>
+                  <NavLink
+                    to="/"
+                    className="text-base font-medium hover:text-primary"
+                  >
+                    Dashboard
+                  </NavLink>
+                </SheetClose>
+                <SheetClose asChild>
+                  <NavLink
+                    to="/debates"
+                    className="text-base font-medium hover:text-primary"
+                  >
+                    Your Debates
+                  </NavLink>
+                </SheetClose>
+                <SheetClose asChild>
+                  <NavLink
+                    to="/import"
+                    className="text-base font-medium hover:text-primary"
+                  >
+                    Import from URL
+                  </NavLink>
+                </SheetClose>
+                <SheetClose asChild>
+                  <NavLink
+                    to="/add"
+                    className="text-base font-medium hover:text-primary"
+                  >
+                    Add Debate Manually
+                  </NavLink>
+                </SheetClose>
+                <SheetClose asChild>
+                  <NavLink
+                    to="/add-tournaments"
+                    className="text-base font-medium hover:text-primary"
+                  >
+                    Add Tournament Manually
+                  </NavLink>
+                </SheetClose>
+              </div>
+              <div className="border-t pt-4 mt-auto mb-6 mr-2">
                 {user ? (
-                    <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-2">
                     <p className="text-sm text-muted-foreground mb-2 px-1">
-                        Signed in as {user.email}
+                      Signed in as {user.email}
                     </p>
                     <SheetClose asChild>
-                        <Button 
-                        onClick={handleSignOut} 
-                        variant="destructive" 
+                      <Button
+                        onClick={handleSignOut}
+                        variant="destructive"
                         className="w-full"
-                        >
+                      >
                         Sign Out
-                        </Button>
+                      </Button>
                     </SheetClose>
-                    </div>
+                  </div>
                 ) : (
-                    <div className="flex flex-col gap-3">
+                  <div className="flex flex-col gap-3">
                     <SheetClose asChild>
-                        <Button asChild className="w-full">
+                      <Button asChild className="w-full">
                         <NavLink to="/signin">Log in</NavLink>
-                        </Button>
+                      </Button>
                     </SheetClose>
                     <SheetClose asChild>
-                        <Button variant="outline" asChild className="w-full">
+                      <Button variant="outline" asChild className="w-full">
                         <NavLink to="/signup">Register</NavLink>
-                        </Button>
+                      </Button>
                     </SheetClose>
-                    </div>
+                  </div>
                 )}
-                </div>
+              </div>
             </SheetContent>
-            </Sheet>
+          </Sheet>
         </div>
       </div>
     </>
