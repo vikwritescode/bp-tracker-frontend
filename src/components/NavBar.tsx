@@ -94,7 +94,7 @@ const NavBar = () => {
                         to="/import"
                         className="whitespace-nowrap overflow-hidden text-ellipssis"
                       >
-                        Add Tab
+                        Import Tab
                       </NavLink>
                     </NavigationMenuLink>
                   </NavigationMenuItem>
@@ -175,7 +175,7 @@ const NavBar = () => {
                     to="/import"
                     className="text-base font-medium hover:text-primary"
                   >
-                    Add Tab
+                    Import Tab
                   </NavLink>
                 </SheetClose>
               </div>
