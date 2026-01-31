@@ -1,12 +1,12 @@
 import { Calendar } from "@/components/ui/calendar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Context } from "../context/AuthContext";
 import { useContext } from "react";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { AlertCircleIcon } from "lucide-react";
 import { Spinner } from "@/components/ui/spinner";
 import { useNavigate } from "react-router-dom";
-
+import type { TournamentRecord } from "@/interfaces";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
@@ -36,6 +36,12 @@ const AddDebate = () => {
   const [speaks, setSpeaks] = useState("");
   const [infoSlide, setInfoSlide] = useState("");
   const [motion, setMotion] = useState("");
+  const [tournament, setTournament] = useState("");
+  const [tournamentArr, setTournamentArr] = useState<Array<TournamentRecord>>(
+    [],
+  );
+  const [errorMessage, setErrorMessage] = useState("");
+  const [tournamentSelected, setTournamentSelected] = useState(false);
 
   const [open, setOpen] = useState(false);
   const [dataValidError, setDataValidError] = useState(false);
@@ -44,12 +50,40 @@ const AddDebate = () => {
 
   const { user } = useContext(Context);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const getTourneys = async () => {
+      try {
+        const token = await user?.getIdToken();
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/usertournaments`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        const data = await response.json();
+        setTournamentArr(data);
+      } catch (err) {
+        console.error(err);
+        setError(true);
+        setErrorMessage("Failed to fetch tournaments");
+      }
+    };
+    getTourneys();
+  }, []);
+
   const handleAdd = async () => {
     const token = await user?.getIdToken();
     // data validation and error checking
     const debateData = {
       position: pos,
       date: date.toISOString().slice(0, 10),
+      tournament: parseInt(tournament),
       points: parseInt(points),
       speaks: parseInt(speaks),
       infoslide: infoSlide,
@@ -95,6 +129,20 @@ const AddDebate = () => {
       console.log("get good");
     }
   };
+
+  const selectTournament = (e: string) => {
+    setTournament(e);
+
+    if (e === "default") {
+      setTournamentSelected(false);
+    } else {
+      const selectedTourn = tournamentArr.find((t) => t.id.toString() === e);
+      if (selectedTourn) {
+        setDate(new Date(selectedTourn.date));
+        setTournamentSelected(true);
+      }
+    }
+  };
   return (
     <div className="w-full px-4 py-6 overflow-x-hidden">
       <div>
@@ -104,6 +152,13 @@ const AddDebate = () => {
           </CardHeader>
 
           <CardContent className="space-y-6">
+            <Alert variant="destructive" hidden={!error}>
+              <AlertCircleIcon className="h-4 w-4" />
+              <AlertTitle className="text-left">Invalid Credentials</AlertTitle>
+              <AlertDescription>
+                {errorMessage}
+              </AlertDescription>
+            </Alert>
             <Alert variant="destructive" hidden={!dataValidError}>
               <AlertCircleIcon className="h-4 w-4" />
               <AlertTitle className="text-left">Invalid Credentials</AlertTitle>
@@ -116,6 +171,20 @@ const AddDebate = () => {
               <AlertTitle className="text-left">Oopsie Woopsie</AlertTitle>
               <AlertDescription>The API fumbled.</AlertDescription>
             </Alert>
+            <div className="space-y-1.5">
+              <h3 className="text-sm font-medium">Tournament</h3>
+              <Select onValueChange={selectTournament}>
+                <SelectTrigger className="h-9 w-full text-sm">
+                  <SelectValue placeholder="Tournament" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="default">No Tournament</SelectItem>
+                  {tournamentArr.map((x) => (
+                    <SelectItem value={x.id.toString()}>{x.name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
             {/* 1 column on mobile, 2×2 on sm+ */}
             <div className="grid gap-4 sm:grid-cols-2">
               {/* Date */}
@@ -126,6 +195,7 @@ const AddDebate = () => {
                     <Button
                       variant="outline"
                       className="h-9 w-full justify-start text-left text-sm"
+                      disabled={tournamentSelected}
                     >
                       {date ? date.toLocaleDateString() : "Pick a date"}
                     </Button>
