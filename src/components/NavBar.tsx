@@ -94,7 +94,7 @@ const NavBar = () => {
                         to="/import"
                         className="whitespace-nowrap overflow-hidden text-ellipssis"
                       >
-                        Import Tab
+                        Add Tab
                       </NavLink>
                     </NavigationMenuLink>
                   </NavigationMenuItem>
@@ -136,30 +136,6 @@ const NavBar = () => {
             <SheetContent side="right" className="flex flex-col h-full">
               <SheetHeader className="text-left">
                 <SheetTitle>Menu</SheetTitle>
-                </SheetHeader>
-                <div className="flex flex-col gap-4 py-6 flex-1 ml-6">
-                    <SheetClose asChild>
-                        <NavLink to="/" className="text-base font-medium hover:text-primary">
-                        Dashboard
-                        </NavLink>
-                    </SheetClose>
-                    <SheetClose asChild>
-                        <NavLink to="/debates" className="text-base font-medium hover:text-primary">
-                        Debates
-                        </NavLink>
-                    </SheetClose>
-                    <SheetClose asChild>
-                        <NavLink to="/add" className="text-base font-medium hover:text-primary">
-                        Add Debate
-                        </NavLink>
-                    </SheetClose>
-                    <SheetClose asChild>
-                        <NavLink to="/import" className="text-base font-medium hover:text-primary">
-                        Import Tab
-                        </NavLink>
-                    </SheetClose>
-                </div>
-                <div className="border-t pt-4 mt-auto mb-6 mr-2">
               </SheetHeader>
               <div className="flex flex-col gap-4 py-6 flex-1 ml-6">
                 <SheetClose asChild>
@@ -175,15 +151,7 @@ const NavBar = () => {
                     to="/debates"
                     className="text-base font-medium hover:text-primary"
                   >
-                    Your Debates
-                  </NavLink>
-                </SheetClose>
-                <SheetClose asChild>
-                  <NavLink
-                    to="/import"
-                    className="text-base font-medium hover:text-primary"
-                  >
-                    Import from URL
+                    Debates
                   </NavLink>
                 </SheetClose>
                 <SheetClose asChild>
@@ -191,7 +159,7 @@ const NavBar = () => {
                     to="/add"
                     className="text-base font-medium hover:text-primary"
                   >
-                    Add Debate Manually
+                    Add Debate
                   </NavLink>
                 </SheetClose>
                 <SheetClose asChild>
@@ -199,10 +167,19 @@ const NavBar = () => {
                     to="/add-tournaments"
                     className="text-base font-medium hover:text-primary"
                   >
-                    Add Tournament Manually
+                    Add Tournament
+                  </NavLink>
+                </SheetClose>
+                <SheetClose asChild>
+                  <NavLink
+                    to="/import"
+                    className="text-base font-medium hover:text-primary"
+                  >
+                    Add Tab
                   </NavLink>
                 </SheetClose>
               </div>
+
               <div className="border-t pt-4 mt-auto mb-6 mr-2">
                 {user ? (
                   <div className="flex flex-col gap-2">

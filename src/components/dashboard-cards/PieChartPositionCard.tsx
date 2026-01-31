@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { Cell, Pie, PieChart, Label } from "recharts";
 import {
   ChartContainer,
@@ -17,7 +17,6 @@ const PieChartPositionCard = ({
   debateData,
   position,
 }: PieChartPositionProps) => {
-
   const dispAv = ([s, c]: Array<number>) => (s / c || 0).toFixed(2);
   const teamStats = debateData.reduce(
     (acc, debate) => {
@@ -33,9 +32,9 @@ const PieChartPositionCard = ({
       oo: [0, 0],
       cg: [0, 0],
       co: [0, 0],
-    }
+    },
   );
-    const speakStats = debateData.reduce(
+  const speakStats = debateData.reduce(
     (acc, debate) => {
       const position = debate["position"].toLowerCase();
       const speaks = debate["speaks"];
@@ -49,9 +48,9 @@ const PieChartPositionCard = ({
       oo: [0, 0],
       cg: [0, 0],
       co: [0, 0],
-    }
+    },
   );
-  
+
   const chartConfig = {
     3: {
       label: "3",
@@ -85,11 +84,17 @@ const PieChartPositionCard = ({
         rec_to_inc.count++;
       }
     });
+  // dispAv(speakStats[title.toLowerCase()])
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{title}: {dispAv(teamStats[title.toLowerCase()])} </CardTitle>
+        <CardTitle>
+          {title}
+        </CardTitle>
+        <CardDescription>
+          {dispAv(speakStats[title.toLowerCase()])} speaks
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer
@@ -107,13 +112,36 @@ const PieChartPositionCard = ({
               nameKey="position"
               innerRadius={60}
             >
-              <Label position="center" fill="white" fontSize={18}>{dispAv(speakStats[title.toLowerCase()])}</Label>
+              <Label
+                position="center"
+                className="text-foreground"
+                fontSize={18}
+                content={({ viewBox }) => {
+                  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                    return (
+                      <text
+                        x={viewBox.cx}
+                        y={viewBox.cy}
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                      >
+                        <tspan
+                          x={viewBox.cx}
+                          y={viewBox.cy}
+                          className="fill-foreground text-3xl"
+                        >
+                          {dispAv(teamStats[title.toLowerCase()])}
+                        </tspan>
+                      </text>
+                    );
+                  }
+                }}
+              ></Label>
               {chartData.map((entry) => (
                 <Cell
                   key={entry.points}
                   fill={
-                    chartConfig[entry.points as keyof typeof chartConfig]
-                      .color
+                    chartConfig[entry.points as keyof typeof chartConfig].color
                   }
                 />
               ))}
