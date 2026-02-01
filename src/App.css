@@ -3,6 +3,10 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  --chart-primary: #1d4f8b;
+  --chart-secondary:#3b89c4;
+  --chart-alt-primary: #f76c26;
+  --chart-alt-secondary: #ffb84d;
 }
 
 .logo {
