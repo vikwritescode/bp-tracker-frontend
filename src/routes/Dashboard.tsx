@@ -2,10 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import { Context } from "../context/AuthContext";
 import PieChartPositionCard from "@/components/dashboard-cards/PieChartPositionCard";
 import PieChartPointCard from "@/components/dashboard-cards/PieChartPointCard";
-import PointsByTopicCard from "@/components/dashboard-cards/PointsByTopicCard";
-import SpeaksByTopicCard from "@/components/dashboard-cards/SpeaksByTopicCard";
 import AverageSpeaksCard from "@/components/dashboard-cards/AverageSpeaksCard";
 import PerformanceCard from "@/components/dashboard-cards/PerformanceCard"
+import TopicCard from "@/components/dashboard-cards/TopicCard";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { AlertCircleIcon } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -82,7 +81,7 @@ const Dashboard = () => {
             <PerformanceCard debateData={debateArr} />
           </div>
 
-          <div className="mt-8">
+          <div className="mt-6">
             <h2 className="text-3xl sm:text-4xl font-semibold">
               Positions
             </h2>
@@ -110,7 +109,7 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div className="mt-8">
+          <div className="mt-6">
             <h2 className="text-3xl sm:text-4xl font-semibold">
               Points
             </h2>
@@ -137,13 +136,8 @@ const Dashboard = () => {
               />
             </div>
           </div>
-
-          <div className="mt-8">
-            <h2 className="text-3xl sm:text-4xl font-semibold">Categories</h2>
-            <div className="grid grid-cols-1 gap-6 mt-6">
-              <PointsByTopicCard debateData={debateArr} />
-              <SpeaksByTopicCard debateData={debateArr} />
-            </div>
+          <div className="grid grid-cols-1 gap-6 mt-6">
+             <TopicCard debateData={debateArr} />
           </div>
         </>
       )}

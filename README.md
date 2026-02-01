@@ -9,7 +9,7 @@ The theming has been done with shadcn and tailwind.
 This, at the moment, also allows for records to be made through simply a URL and a name, instead of adding the results of all of the rounds manually. 
 
 ## Official Instance
-Currently live on [derivative.lol][https://derivative.lol]
+Currently live on [derivative.lol](https://derivative.lol)
 
 ## Features
 - Import from URL
