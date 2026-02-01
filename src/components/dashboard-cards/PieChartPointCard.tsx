@@ -20,19 +20,19 @@ const PieChartPointCard = ({
   const chartConfig = {
     OG: {
       label: "OG",
-      color: "#1d4f8b",
+      color: "var(--chart-primary)",
     },
     OO: {
       label: "OO",
-      color: "#ffb84d",
+      color: "var(--chart-secondary)",
     },
     CG: {
       label: "CG",
-      color: "#3b89c4",
+      color: "var(--chart-alt-secondary)",
     },
     CO: {
       label: "CO",
-      color: "#f76c26",
+      color: "var(--chart-alt-primary)",
     },
   } satisfies ChartConfig;
   const chartData = [
