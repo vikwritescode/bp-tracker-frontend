@@ -10,6 +10,7 @@ export interface DebateRecord {
   motion: string;
   categories: Array<string>;
   tournament: string;
+  tournament_id: string;
 }
 
 export interface TournamentRecord {
