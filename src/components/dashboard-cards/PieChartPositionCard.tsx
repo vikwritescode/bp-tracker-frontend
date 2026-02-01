@@ -54,19 +54,19 @@ const PieChartPositionCard = ({
   const chartConfig = {
     3: {
       label: "3",
-      color: "#1d4f8b",
+      color: "var(--chart-primary)",
     },
     2: {
       label: "2",
-      color: "#3b89c4",
+      color: "var(--chart-secondary)",
     },
     1: {
       label: "1",
-      color: "#ffb84d",
+      color: "var(--chart-alt-secondary)",
     },
     0: {
       label: "0",
-      color: "#f76c26",
+      color: "var(--chart-alt-primary)",
     },
   } satisfies ChartConfig;
   const chartData = [
