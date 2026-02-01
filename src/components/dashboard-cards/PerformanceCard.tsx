@@ -1,6 +1,6 @@
 import type { DebateRecord } from "@/interfaces";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { Line, LineChart, XAxis, CartesianGrid, YAxis } from "recharts";
+import { Line, LineChart, XAxis, CartesianGrid, YAxis, Legend } from "recharts";
 import { useEffect, useState } from "react";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "../ui/chart";
 
@@ -77,7 +77,7 @@ const PerformanceCard = ({ debateData }: PerformanceCardProps) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Performance</CardTitle>
+        <CardTitle className="text-3xl">Performance</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="overflow-x-auto">
@@ -89,14 +89,24 @@ const PerformanceCard = ({ debateData }: PerformanceCardProps) => {
               <CartesianGrid vertical={false} />
               <XAxis dataKey={"date"} />
               <YAxis
-                yAxisId="points"
-                orientation="right"
-                domain={["auto", "auto"]}
-              />
-              <YAxis
                 yAxisId="speaks"
                 orientation="left"
                 domain={["auto", "auto"]}
+                label={{
+                  value:"Speaks",
+                  angle: -90,
+                  position: "insideLeft"
+                }}
+              />
+              <YAxis
+                yAxisId="points"
+                orientation="right"
+                domain={["auto", "auto"]}
+                label={{
+                  value:"Points",
+                  angle: 90,
+                  position: "insideRight"
+                }}
               />
               <ChartTooltip
                 cursor={false}
@@ -108,6 +118,7 @@ const PerformanceCard = ({ debateData }: PerformanceCardProps) => {
                 }
               />
               <Line
+                name="Average Speaks"
                 dataKey="avgSpeaks"
                 yAxisId="speaks"
                 stroke="var(--color-avgSpeaks)"
@@ -116,6 +127,7 @@ const PerformanceCard = ({ debateData }: PerformanceCardProps) => {
                 dot={false}
               />
               <Line
+                name="Average Points"
                 dataKey="avgPoints"
                 yAxisId="points"
                 stroke="var(--color-avgPoints)"
@@ -123,6 +135,7 @@ const PerformanceCard = ({ debateData }: PerformanceCardProps) => {
                 type="monotone"
                 dot={false}
               />
+              <Legend  />
             </LineChart>
           </ChartContainer>
         </div>
