@@ -7,11 +7,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useState } from "react";
 interface TopicCardProps {
   debateData: Array<any>;
 }
 const TopicCard = ({ debateData }: TopicCardProps) => {
-  const stats = debateData.reduce((acc, debate) => {
+  const [sortBy, setSortBy] = useState(0);
+  const stats = debateData.reduce<Record<string, [number, number, number]>>((acc, debate) => {
     for (const category of debate["categories"]) {
       if (!acc[category]) {
         acc[category] = [0, 0, 0];
@@ -39,7 +41,13 @@ const TopicCard = ({ debateData }: TopicCardProps) => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {pairs.map((pair: Array<any>)  => (
+            {pairs
+            .sort((a, b) => {
+              const avgA = (a[1][sortBy] / a[1][2]) || 0;
+              const avgB = (b[1][sortBy] / b[1][2]) || 0;
+              return avgB - avgA
+            })
+            .map((pair: Array<any>)  => (
               <TableRow>
                 <TableCell>{pair[0] == "null" ? "Other" : pair[0]}</TableCell>
                 <TableCell>{(pair[1][0] / pair[1][2]).toFixed(2)}</TableCell>
