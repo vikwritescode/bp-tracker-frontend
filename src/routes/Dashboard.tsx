@@ -5,9 +5,11 @@ import PieChartPointCard from "@/components/dashboard-cards/PieChartPointCard";
 import PointsByTopicCard from "@/components/dashboard-cards/PointsByTopicCard";
 import SpeaksByTopicCard from "@/components/dashboard-cards/SpeaksByTopicCard";
 import AverageSpeaksCard from "@/components/dashboard-cards/AverageSpeaksCard";
+import PerformanceCard from "@/components/dashboard-cards/PerformanceCard"
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { AlertCircleIcon } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+// import { DebateRecord } from "@/interfaces";
 
 const Dashboard = () => {
   const { user } = useContext(Context);
@@ -77,6 +79,7 @@ const Dashboard = () => {
         <>
           <div className="grid grid-cols-1 gap-6 mt-6">
             <AverageSpeaksCard debateData={debateArr} />
+            <PerformanceCard debateData={debateArr} />
           </div>
 
           <div className="mt-8">
