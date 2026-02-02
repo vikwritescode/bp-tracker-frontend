@@ -210,6 +210,8 @@ const AddDebate = () => {
                         setDate(d);
                         setOpen(false);
                       }}
+                      className="rounded-md border shadow-sm w-full"
+                      captionLayout="dropdown"
                     />
                   </PopoverContent>
                 </Popover>
