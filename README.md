@@ -1,22 +1,20 @@
-# Derivative 
-An Open Source BP Debate Tracker
+# Derivative : An Open Source BP Debate Tracker
 
-## What is this repo?
-This is the frontend code for my BP debate tracker, built with react and vite. This fetches and generates records using an API, and interfaces with firebase to provide signin functionality. 
+Currently live on [derivative.lol](https://derivative.lol). This is the frontend of a [tracker](https://github.com/vikwritescode/bp-debate-tracker) designed for British Parliamentary debating, allowing users record and import results, view their history, and access summary statistics.
 
-The theming has been done with shadcn and tailwind. 
+Built with React, Tailwind, Vite, shadcn, and Firebase. All code is made available under the [GNU AGPLv3](https://github.com/vikwritescode/bp-tracker-frontend/blob/main/LICENSE.md) license.
 
-This, at the moment, also allows for records to be made through simply a URL and a name, instead of adding the results of all of the rounds manually. 
+## Features
+- Add debate results
+- Import from [TabbyCat](https://tabbycat.readthedocs.io/en/stable/) URLs
+- Track performance over time
+- View and manage history
+- User registration and authentication
+- Automatic motion categorisation
 
 ## Official Instance
 Currently live on [derivative.lol](https://derivative.lol)
 
-## Features
-- Import from URL
-- Get position wide averages
-- View Debates Individually
-- Sign Up and Login
-- Add Individual Records
-- Delete Records
-- View Motions and Infoslides
-- Automatic Categorisation of Debates
+Create a new project on Firebase, adding authentication and a web app from the overview screen. Add a .env file to the repo's root folder, with VITE_FIREBASE_{API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MESSAGING_SENDER_ID, APP_ID}; for each, copy the value of the corresponding entry in the firebaseConfig object of the web app you've created, visible from your Firebase project settings.
+
+Finally, add VITE_API_URL to your .env, pointing towards the address of your backend API instance. The frontend can then be launched using `npm run dev` from its root folder.
