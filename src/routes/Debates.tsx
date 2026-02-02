@@ -22,6 +22,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { InfoIcon } from "lucide-react";
+import { sort } from "mathjs";
 const Debates = () => {
   const { user } = useContext(Context);
   const [debateArr, setDebateArr] = useState([]);
@@ -81,6 +82,18 @@ const Debates = () => {
     }
   };
 
+  const [sortBy, setSortBy] = useState("date");
+  const [ascending, setAscending] = useState(false);
+
+  const handleSort = (ind: string) => {
+    if (ind === sortBy) {
+      // flip ascending/descending
+      setAscending((prev) => !prev);
+    } else {
+      setSortBy(ind);
+    }
+  };
+
   if (error) {
     return (
       <div className="w-full px-4 py-6 overflow-x-hidden">
@@ -107,30 +120,82 @@ const Debates = () => {
         <Table>
           <TableHeader>
             <TableRow className="text-left">
-              <TableHead>Date</TableHead>
-              <TableHead>Tournament</TableHead>
-              <TableHead>Position</TableHead>
-              <TableHead>Points</TableHead>
-              <TableHead>Speaks</TableHead>
+              <TableHead
+                className="cursor-pointer hover:underline hover:text-secondary-foreground"
+                onClick={() => handleSort("date")}
+              >
+                Date
+              </TableHead>
+              <TableHead
+                className="cursor-pointer hover:underline hover:text-secondary-foreground"
+                onClick={() => handleSort("tournament")}
+              >
+                Tournament
+              </TableHead>
+              <TableHead
+                className="cursor-pointer hover:underline hover:text-secondary-foreground"
+                onClick={() => handleSort("position")}
+              >
+                Position
+              </TableHead>
+              <TableHead
+                className="cursor-pointer hover:underline hover:text-secondary-foreground"
+                onClick={() => handleSort("points")}
+              >
+                Points
+              </TableHead>
+              <TableHead
+                className="cursor-pointer hover:underline hover:text-secondary-foreground"
+                onClick={() => handleSort("speaks")}
+              >
+                Speaks
+              </TableHead>
               <TableHead>Info Slide</TableHead>
               <TableHead>Motion</TableHead>
               <TableHead>Type</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className="text-left">
-            {debateArr.map((rec: DebateRecord, i) => (
-              <TableRow>
-                <TableCell>
-                  {rec["date"] == null ? rec["legacy_date"] : rec["date"]}
-                </TableCell>
-                <TableCell>{rec["tournament"]}</TableCell>
-                <TableCell>{rec["position"]}</TableCell>
-                <TableCell>{rec["points"]}</TableCell>
-                <TableCell>{rec["speaks"]}</TableCell>
-                <TableCell>
-                  {rec["infoslide"] === "" ? (
-                    <></>
-                  ) : (
+            {debateArr
+              .sort((a, b) => {
+                const mult = ascending ? 1 : -1;
+                if (sortBy == "date") {
+                  return mult * (new Date(a["date"]).getTime() - new Date(b["date"]).getTime());
+                } else if (sortBy === "tournament" || sortBy === "position") {
+                  const valA = (a[sortBy] as string === null) ? "" : a[sortBy] as string;
+                  const valB = (b[sortBy] as string === null) ? "" : b[sortBy] as string;
+                  return mult * valA.localeCompare(valB, undefined, { numeric: true })
+                }
+                return mult * (a[sortBy] - b[sortBy]);
+              })
+              .map((rec: DebateRecord, i) => (
+                <TableRow>
+                  <TableCell>
+                    {rec["date"] == null ? rec["legacy_date"] : rec["date"]}
+                  </TableCell>
+                  <TableCell>{rec["tournament"]}</TableCell>
+                  <TableCell>{rec["position"]}</TableCell>
+                  <TableCell>{rec["points"]}</TableCell>
+                  <TableCell>{rec["speaks"]}</TableCell>
+                  <TableCell>
+                    {rec["infoslide"] === "" ? (
+                      <></>
+                    ) : (
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button variant="ghost">
+                            <InfoIcon />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="max-w-md max-h-[400px] overflow-y-auto">
+                          <p className="text-sm whitespace-pre-wrap">
+                            {rec["infoslide"]}
+                          </p>
+                        </PopoverContent>
+                      </Popover>
+                    )}
+                  </TableCell>
+                  <TableCell>
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button variant="ghost">
@@ -139,49 +204,34 @@ const Debates = () => {
                       </PopoverTrigger>
                       <PopoverContent className="max-w-md max-h-[400px] overflow-y-auto">
                         <p className="text-sm whitespace-pre-wrap">
-                          {rec["infoslide"]}
+                          {rec["motion"]}
                         </p>
                       </PopoverContent>
                     </Popover>
-                  )}
-                </TableCell>
-                <TableCell>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button variant="ghost">
-                        <InfoIcon />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="max-w-md max-h-[400px] overflow-y-auto">
-                      <p className="text-sm whitespace-pre-wrap">
-                        {rec["motion"]}
-                      </p>
-                    </PopoverContent>
-                  </Popover>
-                </TableCell>
-                <TableCell>
-                  <div className="flex flex-wrap gap-1">
-                    {(rec["categories"] || [])
-                      .filter((x: string) => x)
-                      .map((x: string) => (
-                        <Badge key={x} className="text-xs px-2 py-1 rounded-md">
-                          {x}
-                        </Badge>
-                      ))}
-                  </div>
-                </TableCell>
-                <TableCell onClick={() => handleDeleteClick(rec["id"])}>
-                  <Button
-                    disabled={loads[i]}
-                    variant="ghost"
-                    size="icon"
-                    className="text-destructive hover:text-destructive hover:bg-destructive/10"
-                  >
-                    {loads[i] ? <Spinner /> : <Trash />}
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex flex-wrap gap-1">
+                      {(rec["categories"] || [])
+                        .filter((x: string) => x)
+                        .map((x: string) => (
+                          <Badge key={x} className="text-xs px-2 py-1 rounded-md">
+                            {x}
+                          </Badge>
+                        ))}
+                    </div>
+                  </TableCell>
+                  <TableCell onClick={() => handleDeleteClick(rec["id"])}>
+                    <Button
+                      disabled={loads[i]}
+                      variant="ghost"
+                      size="icon"
+                      className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                    >
+                      {loads[i] ? <Spinner /> : <Trash />}
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </div>
