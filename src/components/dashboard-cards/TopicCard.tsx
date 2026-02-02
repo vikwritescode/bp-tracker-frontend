@@ -48,13 +48,24 @@ const TopicCard = ({ debateData }: TopicCardProps) => {
           <TableHeader>
             <TableRow>
               <TableHead>Category</TableHead>
-              <TableHead onClick={() => handleSort(0)}>
+              <TableHead
+                className="hover:underline hover:text-secondary-foreground"
+                onClick={() => handleSort(0)}
+              >
                 Average Points
               </TableHead>
-              <TableHead onClick={() => handleSort(1)}>
+              <TableHead
+                onClick={() => handleSort(1)}
+                className="hover:underline hover:text-secondary-foreground"
+              >
                 Average Speaks
               </TableHead>
-              <TableHead onClick={() => handleSort(2)}>Count</TableHead>
+              <TableHead
+                className="hover:underline hover:text-secondary-foreground"
+                onClick={() => handleSort(2)}
+              >
+                Count
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
