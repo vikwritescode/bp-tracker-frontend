@@ -40,6 +40,7 @@ const ImportDebates = () => {
   const [tabLoad, setTabLoad] = useState(false);
   const [tabError, setTabError] = useState(false);
   const [date, setDate] = useState<Date>(new Date());
+  const [month, setMonth] = useState<Date>(new Date());
 
   const handleSlugFetch = async () => {
     setFetchedTouraments(true);
@@ -83,6 +84,8 @@ const ImportDebates = () => {
     try {
       setNameLoad(true);
       setNameError(false);
+
+      // fetch speaker
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/speakers?url=${encodeURIComponent(
           url,
@@ -100,11 +103,38 @@ const ImportDebates = () => {
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
-      const json = await response.json();
 
+      // fetch date
+      const dateResponse = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/startdate?url=${encodeURIComponent(
+          url,
+        )}&slug=${encodeURIComponent(selectedSlug)}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        },
+      );
+      if (!dateResponse.ok) {
+        throw new Error(
+          `HTTP ${dateResponse.status}: ${dateResponse.statusText}`,
+        );
+      }
+      const dateJson = await dateResponse.json();
+      const json = await response.json();
       console.log(json);
+
+      // set name related stuff
       setNames(json);
       setSelectedName(json[0].url);
+
+      // set tourney date
+      const tDate = new Date(dateJson);
+      console.log(tDate);
+      setDate(tDate);
+      setMonth(tDate);
     } catch (err) {
       console.error(err);
       setFetchedNames(false);
@@ -159,9 +189,7 @@ const ImportDebates = () => {
         {/* Card 1: Tournaments */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-2xl">
-              Import from URL
-            </CardTitle>
+            <CardTitle className="text-2xl">Import from URL</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex flex-col sm:flex-row gap-3">
@@ -170,9 +198,8 @@ const ImportDebates = () => {
                 placeholder="Tab URL"
                 className="flex-1"
                 onKeyDown={(e) => {
-                  if (e.key === "Enter")
-                    handleSlugFetch();
-                  }}
+                  if (e.key === "Enter") handleSlugFetch();
+                }}
               />
               <Button
                 onClick={handleSlugFetch}
@@ -244,9 +271,8 @@ const ImportDebates = () => {
                 placeholder="Speaker Name"
                 className="flex-1"
                 onKeyDown={(e) => {
-                  if (e.key === "Enter")
-                    handleSpeakerFetch();
-                  }}
+                  if (e.key === "Enter") handleSpeakerFetch();
+                }}
               />
               <Button
                 onClick={handleSpeakerFetch}
@@ -309,6 +335,8 @@ const ImportDebates = () => {
                     <Calendar
                       mode="single"
                       selected={date}
+                      month={month}
+                      onMonthChange={setMonth}
                       onSelect={(d) => d && setDate(d)}
                       className="rounded-md border shadow-sm w-full"
                       captionLayout="dropdown"
