@@ -197,7 +197,7 @@ const AddDebate = () => {
                       className="h-9 w-full justify-start text-left text-sm"
                       disabled={tournamentSelected}
                     >
-                      {date ? date.toLocaleDateString() : "Pick a date"}
+                      {date ? date.toLocaleDateString(undefined, {day:"2-digit", month:"2-digit", year:"numeric"}) : "Pick a date"}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="p-0">

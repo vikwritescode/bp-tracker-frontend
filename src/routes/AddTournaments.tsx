@@ -83,7 +83,6 @@ const AddTournaments = () => {
             <CardTitle className="text-3xl font-semibold">Add Tournament</CardTitle>
           </CardHeader>
 
-
           <CardContent className="space-y-6">
             <Alert variant="destructive" hidden={!dataValidError}>
               <AlertCircleIcon className="h-4 w-4" />
@@ -107,7 +106,7 @@ const AddTournaments = () => {
                       variant="outline"
                       className="h-9 w-full justify-start text-left text-sm"
                     >
-                      {date ? date.toLocaleDateString() : "Pick a date"}
+                      {date ? date.toLocaleDateString(undefined, {day:"2-digit", month:"2-digit", year:"numeric"}) : "Pick a date"}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="p-0">

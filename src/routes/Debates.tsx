@@ -22,7 +22,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { InfoIcon } from "lucide-react";
-import { sort } from "mathjs";
+
 const Debates = () => {
   const { user } = useContext(Context);
   const [debateArr, setDebateArr] = useState([]);
