@@ -1,4 +1,4 @@
-# Derivative : An Open Source BP Debate Tracker
+# Derivative: An Open Source BP Debate Tracker
 
 Currently live on [derivative.lol](https://derivative.lol). This is the frontend of a [tracker](https://github.com/vikwritescode/bp-debate-tracker) designed for British Parliamentary debating, allowing users record and import results, view their history, and access summary statistics.
 
@@ -12,6 +12,8 @@ Built with React, Tailwind, Vite, shadcn, and Firebase. All code is made availab
 - User registration and authentication
 - Automatic motion categorisation
 
+
+## Setup Instructions
 Create a new project on Firebase, adding authentication and a web app from the overview screen. Add a .env file to the repo's root folder, with `VITE_FIREBASE_{API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MESSAGING_SENDER_ID, APP_ID}`; for each, copy the value of the corresponding entry in the `firebaseConfig` object of the web app you've created, visible from your Firebase project settings.
 
 Finally, add `VITE_API_URL` to your .env, pointing towards the address of your backend API instance. The frontend can then be launched using `npm run dev` from its root folder.
