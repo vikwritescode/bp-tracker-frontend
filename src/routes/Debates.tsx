@@ -106,7 +106,7 @@ const Debates = () => {
       <div className="py-4">
         <Table>
           <TableHeader>
-            <TableRow>
+            <TableRow className="text-left">
               <TableHead>Date</TableHead>
               <TableHead>Tournament</TableHead>
               <TableHead>Position</TableHead>

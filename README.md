@@ -12,7 +12,8 @@ Built with React, Tailwind, Vite, shadcn, and Firebase. All code is made availab
 - User registration and authentication
 - Automatic motion categorisation
 
-## Setup
+## Official Instance
+Currently live on [derivative.lol](https://derivative.lol)
 
 Create a new project on Firebase, adding authentication and a web app from the overview screen. Add a .env file to the repo's root folder, with VITE_FIREBASE_{API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MESSAGING_SENDER_ID, APP_ID}; for each, copy the value of the corresponding entry in the firebaseConfig object of the web app you've created, visible from your Firebase project settings.
 
