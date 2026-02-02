@@ -22,6 +22,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { InfoIcon } from "lucide-react";
+
 const Debates = () => {
   const { user } = useContext(Context);
   const [debateArr, setDebateArr] = useState([]);
