@@ -100,10 +100,10 @@ const Debates = () => {
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold">
           Your Debates
         </h1>
-        <Alert variant="destructive">
+        <Alert variant="destructive" className="mt-6">
           <AlertCircleIcon className="h-4 w-4" />
           <AlertTitle className="text-left mb-1">
-            Error fetching data
+            Error retrieving debate history
           </AlertTitle>
           <AlertDescription>Please reload the page.</AlertDescription>
         </Alert>

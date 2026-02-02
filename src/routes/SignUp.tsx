@@ -58,7 +58,7 @@ const SignUp = () => {
           <div className="space-y-2">
             <Alert variant="destructive" hidden={!error}>
               <AlertCircleIcon className="h-4 w-4" />
-              <AlertTitle className="text-left">Registration Error</AlertTitle>
+              <AlertTitle className="text-left">Registration error</AlertTitle>
               <AlertDescription>{errorMessage}</AlertDescription>
             </Alert>
             <Label htmlFor="email">Email</Label>

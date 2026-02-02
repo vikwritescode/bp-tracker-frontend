@@ -86,15 +86,15 @@ const AddTournaments = () => {
           <CardContent className="space-y-6">
             <Alert variant="destructive" hidden={!dataValidError}>
               <AlertCircleIcon className="h-4 w-4" />
-              <AlertTitle className="text-left">Invalid Credentials</AlertTitle>
+              <AlertTitle className="text-left">Invalid tournament</AlertTitle>
               <AlertDescription>
-                Make sure your entry is valid.
+                Make sure all entries contain valid data.
               </AlertDescription>
             </Alert>
             <Alert variant="destructive" hidden={!error}>
               <AlertCircleIcon className="h-4 w-4" />
-              <AlertTitle className="text-left">Oopsie Woopsie</AlertTitle>
-              <AlertDescription>The API fumbled.</AlertDescription>
+              <AlertTitle className="text-left">API error</AlertTitle>
+              <AlertDescription>The API was unable to process your request.</AlertDescription>
             </Alert>
             <div className="grid gap-4">
               {/* Date */}

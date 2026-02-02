@@ -54,7 +54,7 @@ const SignIn = () => {
         <CardContent className="space-y-4">
           <Alert variant="destructive" hidden={!error}>
             <AlertCircleIcon className="h-4 w-4" />
-            <AlertTitle className="text-left">Login Error</AlertTitle>
+            <AlertTitle className="text-left">Issue when logging in</AlertTitle>
             <AlertDescription>{errorMessage}</AlertDescription>
           </Alert>
           <div className="space-y-2">

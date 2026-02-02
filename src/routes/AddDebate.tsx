@@ -71,7 +71,7 @@ const AddDebate = () => {
       } catch (err) {
         console.error(err);
         setError(true);
-        setErrorMessage("Failed to fetch tournaments");
+        setErrorMessage("Failed to fetch tournaments.");
       }
     };
     getTourneys();
@@ -95,7 +95,8 @@ const AddDebate = () => {
       debateData.points >= 0 &&
       debateData.points <= 3 &&
       debateData.speaks >= 50 &&
-      debateData.speaks <= 100
+      debateData.speaks <= 100 &&
+      debateData.date <= new Date().toISOString().slice(0, 10)
     ) {
       try {
         setLoad(true);
@@ -154,22 +155,22 @@ const AddDebate = () => {
           <CardContent className="space-y-6">
             <Alert variant="destructive" hidden={!error}>
               <AlertCircleIcon className="h-4 w-4" />
-              <AlertTitle className="text-left">Invalid Credentials</AlertTitle>
+              <AlertTitle className="text-left">Tournaments error</AlertTitle>
               <AlertDescription>
                 {errorMessage}
               </AlertDescription>
             </Alert>
             <Alert variant="destructive" hidden={!dataValidError}>
               <AlertCircleIcon className="h-4 w-4" />
-              <AlertTitle className="text-left">Invalid Credentials</AlertTitle>
+              <AlertTitle className="text-left">Invalid debate</AlertTitle>
               <AlertDescription>
-                Make sure your entry is valid.
+                Make sure all entries contain valid data.
               </AlertDescription>
             </Alert>
             <Alert variant="destructive" hidden={!error}>
               <AlertCircleIcon className="h-4 w-4" />
-              <AlertTitle className="text-left">Oopsie Woopsie</AlertTitle>
-              <AlertDescription>The API fumbled.</AlertDescription>
+              <AlertTitle className="text-left">API error</AlertTitle>
+              <AlertDescription>The API was unable to process your request.</AlertDescription>
             </Alert>
             <div className="space-y-1.5">
               <h3 className="text-sm font-medium">Tournament</h3>

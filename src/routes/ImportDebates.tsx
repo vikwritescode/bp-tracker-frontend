@@ -214,12 +214,10 @@ const ImportDebates = () => {
             <Alert variant="destructive" hidden={!error}>
               <AlertCircleIcon className="h-4 w-4" />
               <AlertTitle className="text-left">
-                Unable to Fetch Tournament
+                Unable to fetch from tab URL
               </AlertTitle>
-              <AlertDescription>
-                Make sure the tab URL is correct, and that only the tab URL is
-                present.
-                {errorMessage}
+              <AlertDescription className="text-left">
+                {errorMessage} Make sure the URL is correct, and that only the tab URL is present.
               </AlertDescription>
             </Alert>
 
@@ -287,11 +285,10 @@ const ImportDebates = () => {
             <Alert variant="destructive" hidden={!nameError}>
               <AlertCircleIcon className="h-4 w-4" />
               <AlertTitle className="text-left">
-                Unable to Fetch Speaker
+                Unable to fetch speaker
               </AlertTitle>
-              <AlertDescription>
-                Make sure at least part of the name is correct.
-                {errorMessage}
+              <AlertDescription className="text-left">
+                {errorMessage}. Make sure at least a portion of the name is present and correct.
               </AlertDescription>
             </Alert>
 
@@ -352,9 +349,9 @@ const ImportDebates = () => {
                     <Alert variant="destructive" hidden={!tabError}>
                       <AlertCircleIcon className="h-4 w-4" />
                       <AlertTitle className="text-left">
-                        Unable to Import Records
+                        Unable to import records
                       </AlertTitle>
-                      <AlertDescription>{errorMessage}</AlertDescription>
+                      <AlertDescription className="text-left">{errorMessage}</AlertDescription>
                     </Alert>
                   </div>
                 </div>
