@@ -1,6 +1,6 @@
 # Derivative: An Open Source BP Debate Tracker
 
-Currently live on [derivative.lol](https://derivative.lol). This is the frontend of a [tracker](https://github.com/vikwritescode/bp-debate-tracker) designed for British Parliamentary debating, allowing users record and import results, view their history, and access summary statistics.
+Currently live on [derivative.lol](https://derivative.lol). This is the front-end of a tracker designed for British Parliamentary debating, allowing users record and import results, view their history, and access summary statistics. The back-end is visible [here](https://github.com/vikwritescode/bp-debate-tracker).
 
 Built with React, Tailwind, Vite, shadcn, and Firebase. All code is made available under the [GNU AGPLv3](https://github.com/vikwritescode/bp-tracker-frontend/blob/main/LICENSE.md) license.
 
