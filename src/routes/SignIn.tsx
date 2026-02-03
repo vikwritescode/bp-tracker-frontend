@@ -73,6 +73,9 @@ const SignIn = () => {
               type="password"
               placeholder="Enter your password"
               onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleSignIn();
+              }}
             />
           </div>
           <Button onClick={handleSignIn} className="w-full" disabled={load}>
