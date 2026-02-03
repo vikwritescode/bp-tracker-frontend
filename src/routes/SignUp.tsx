@@ -85,6 +85,9 @@ const SignUp = () => {
               type="password"
               placeholder="Confirm your password"
               onChange={(e) => setConfirmPassword(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleSignUp();
+              }}
             />
           </div>
           <Button onClick={handleSignUp} className="w-full" disabled={load}>
