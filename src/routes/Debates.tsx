@@ -161,10 +161,18 @@ const Debates = () => {
                 const mult = ascending ? 1 : -1;
                 if (sortBy == "date") {
                   return mult * (new Date(a["date"]).getTime() - new Date(b["date"]).getTime());
-                } else if (sortBy === "tournament" || sortBy === "position") {
+                } else if (sortBy === "tournament") {
                   const valA = (a[sortBy] as string === null) ? "" : a[sortBy] as string;
                   const valB = (b[sortBy] as string === null) ? "" : b[sortBy] as string;
                   return mult * valA.localeCompare(valB, undefined, { numeric: true })
+                } else if (sortBy === "position") {
+                  const positions = {
+                    "OG" : 0,
+                    "OO" : 1,
+                    "CG" : 2,
+                    "CO" : 3
+                  };
+                  return mult * (positions[a[sortBy]] - positions[b[sortBy]]);
                 }
                 return mult * (a[sortBy] - b[sortBy]);
               })
