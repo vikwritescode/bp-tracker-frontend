@@ -14,12 +14,7 @@ import { Trash, AlertCircleIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { type TournamentRecord } from "@/interfaces";
-import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
-import {
-  DialogClose,
-  DialogDescription,
-  DialogTrigger,
-} from "@radix-ui/react-dialog";
+import { Dialog, DialogContent, DialogHeader, DialogClose, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 const Tournaments = () => {
   const { user } = useContext(Context);
@@ -177,19 +172,34 @@ const Tournaments = () => {
                         }
                       </DialogTrigger>
                       <DialogContent>
-                        <DialogHeader>Delete Tournament</DialogHeader>
-                        <DialogDescription>
-                          Are you sure you want to delete {rec["name"]}?
-                        </DialogDescription>
-                        <DialogClose asChild>
-                          <Button
-                            onClick={() => handleDeleteClick(rec["id"])}
-                            disabled={loads[i]}
-                            className="text-destructive hover:text-destructive hover:bg-destructive/10"
-                          >
-                            OK
-                          </Button>
-                        </DialogClose>
+                        <DialogHeader>
+                          <DialogTitle>Delete Tournament</DialogTitle>
+                          <DialogDescription>
+                            Are you sure you want to delete {rec["name"]} and all associated debates?
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-end gap-2 sm:gap-3 p-6 sm:p-0 -m-6 sm:m-0">
+                          <DialogClose asChild>
+                            <Button
+                              className="w-full sm:w-auto"
+                              variant="outline"
+                              onClick={() => handleDeleteClick(rec["id"])}
+                              disabled={loads[i]}
+                            >
+                              Cancel
+                            </Button>
+                          </DialogClose>
+                          <DialogClose asChild>
+                            <Button
+                              className="w-full sm:w-auto"
+                              variant="destructive"
+                              onClick={() => handleDeleteClick(rec["id"])}
+                              disabled={loads[i]}
+                            >
+                              Delete
+                            </Button>
+                          </DialogClose>
+                        </div>
                       </DialogContent>
                     </Dialog>
                   </TableCell>
