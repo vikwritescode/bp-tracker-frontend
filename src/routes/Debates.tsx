@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Trash, AlertCircleIcon } from "lucide-react";
+import { Trash, AlertCircleIcon, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { Badge } from "@/components/ui/badge";
@@ -22,8 +22,10 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { InfoIcon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Debates = () => {
+  const navigate = useNavigate();
   const { user } = useContext(Context);
   const [debateArr, setDebateArr] = useState([]);
   const [load, setLoad] = useState(true);
@@ -153,6 +155,16 @@ const Debates = () => {
               <TableHead>Info Slide</TableHead>
               <TableHead>Motion</TableHead>
               <TableHead>Type</TableHead>
+              <TableHead>
+                <Button
+                  // size="icon"
+                  variant="ghost"
+                  // variant="outline"
+                  onClick={() => navigate("/add")}
+                >
+                  <Plus />
+                </Button>
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className="text-left">
@@ -160,17 +172,26 @@ const Debates = () => {
               .sort((a, b) => {
                 const mult = ascending ? 1 : -1;
                 if (sortBy == "date") {
-                  return mult * (new Date(a["date"]).getTime() - new Date(b["date"]).getTime());
+                  return (
+                    mult *
+                    (new Date(a["date"]).getTime() -
+                      new Date(b["date"]).getTime())
+                  );
                 } else if (sortBy === "tournament") {
-                  const valA = (a[sortBy] as string === null) ? "" : a[sortBy] as string;
-                  const valB = (b[sortBy] as string === null) ? "" : b[sortBy] as string;
-                  return mult * valA.localeCompare(valB, undefined, { numeric: true })
+                  const valA =
+                    (a[sortBy] as string) === null ? "" : (a[sortBy] as string);
+                  const valB =
+                    (b[sortBy] as string) === null ? "" : (b[sortBy] as string);
+                  return (
+                    mult *
+                    valA.localeCompare(valB, undefined, { numeric: true })
+                  );
                 } else if (sortBy === "position") {
                   const positions = {
-                    "OG" : 0,
-                    "OO" : 1,
-                    "CG" : 2,
-                    "CO" : 3
+                    OG: 0,
+                    OO: 1,
+                    CG: 2,
+                    CO: 3,
                   };
                   return mult * (positions[a[sortBy]] - positions[b[sortBy]]);
                 }
@@ -222,7 +243,10 @@ const Debates = () => {
                       {(rec["categories"] || [])
                         .filter((x: string) => x)
                         .map((x: string) => (
-                          <Badge key={x} className="text-xs px-2 py-1 rounded-md">
+                          <Badge
+                            key={x}
+                            className="text-xs px-2 py-1 rounded-md"
+                          >
                             {x}
                           </Badge>
                         ))}

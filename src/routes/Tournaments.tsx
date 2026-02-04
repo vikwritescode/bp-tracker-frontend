@@ -139,11 +139,11 @@ const Tournaments = () => {
               <TableHead>
                 <Button
                   // size="icon"
-                  // variant="ghost"
-                  variant="outline"
+                  variant="ghost"
+                  // variant="outline"
                   onClick={() => navigate("/add-tournaments")}
                 >
-                 <Plus />
+                  <Plus />
                 </Button>
               </TableHead>
             </TableRow>
