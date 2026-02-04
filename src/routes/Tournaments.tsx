@@ -51,7 +51,7 @@ const Tournaments = () => {
       setLoads((prev) => prev.map((v, i) => (i === x ? true : v)));
       const token = await user?.getIdToken();
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/delete/${x}`,
+        `${import.meta.env.VITE_API_URL}/api/usertournaments/delete/${x}`,
         {
           method: "DELETE",
           headers: {
