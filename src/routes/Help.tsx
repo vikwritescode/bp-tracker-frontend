@@ -26,8 +26,8 @@ const Help = () => {
               </p>
               <br />
               <p>
-                <Link to="/import" className="underline">Import Tab</Link>, provided a TabbyCat URL or the prefix of a CalicoTab
-                URL, automaticalyl obtains all of your results from that competition. 
+                <Link to="/add-debates" className="underline">Add Debates</Link> lets you enter the information for an individual
+                debate by hand, including whether or not it is part of a tournament.
               </p>
               <br />
               <p>
@@ -36,8 +36,8 @@ const Help = () => {
               </p>
               <br />
               <p>
-                <Link to="/add-debates" className="underline">Add Debates</Link> lets you enter the information for an individual
-                debate by hand, including whether or not it is part of a tournament.
+                <Link to="/import" className="underline">Import Tab</Link>, provided a TabbyCat URL or the prefix of a CalicoTab
+                URL, automaticalyl obtains all of your results from that competition. 
               </p>
             </CardContent>
           </Card>
