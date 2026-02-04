@@ -14,6 +14,12 @@ import { Trash, AlertCircleIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { type TournamentRecord } from "@/interfaces";
+import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
+import {
+  DialogClose,
+  DialogDescription,
+  DialogTrigger,
+} from "@radix-ui/react-dialog";
 
 const Tournaments = () => {
   const { user } = useContext(Context);
@@ -124,7 +130,6 @@ const Tournaments = () => {
               >
                 Tournament
               </TableHead>
-
             </TableRow>
           </TableHeader>
           <TableBody className="text-left">
@@ -157,15 +162,36 @@ const Tournaments = () => {
                 <TableRow>
                   <TableCell>{rec["date"]}</TableCell>
                   <TableCell>{rec["name"]}</TableCell>
-                  <TableCell onClick={() => handleDeleteClick(rec["id"])}>
-                    <Button
-                      disabled={loads[i]}
-                      variant="ghost"
-                      size="icon"
-                      className="text-destructive hover:text-destructive hover:bg-destructive/10"
-                    >
-                      {loads[i] ? <Spinner /> : <Trash />}
-                    </Button>
+                  <TableCell>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        {
+                          <Button
+                            disabled={loads[i]}
+                            variant="ghost"
+                            size="icon"
+                            className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                          >
+                            {loads[i] ? <Spinner /> : <Trash />}
+                          </Button>
+                        }
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>Delete Tournament</DialogHeader>
+                        <DialogDescription>
+                          Are you sure you want to delete {rec["name"]}?
+                        </DialogDescription>
+                        <DialogClose asChild>
+                          <Button
+                            onClick={() => handleDeleteClick(rec["id"])}
+                            disabled={loads[i]}
+                            className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                          >
+                            OK
+                          </Button>
+                        </DialogClose>
+                      </DialogContent>
+                    </Dialog>
                   </TableCell>
                 </TableRow>
               ))}
