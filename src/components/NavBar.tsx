@@ -110,9 +110,14 @@ const NavBar = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48 max-w-full">
               {user ? (
-                <DropdownMenuItem onClick={handleSignOut}>
-                  Sign out
-                </DropdownMenuItem>
+                <>
+                  <DropdownMenuItem asChild>
+                    <div onClick={handleSignOut}>Sign out</div>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <NavLink to="/help">Help</NavLink>
+                  </DropdownMenuItem>
+                  </>
               ) : (
                 <>
                   <DropdownMenuItem asChild>

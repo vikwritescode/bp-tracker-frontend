@@ -91,7 +91,8 @@ const PerformanceCard = ({ debateData }: PerformanceCardProps) => {
               <YAxis
                 yAxisId="speaks"
                 orientation="left"
-                domain={["auto", "auto"]}
+                domain={["dataMin-1", "dataMax+1"]}
+                tickFormatter={(value: number) => value.toFixed(2)}
                 label={{
                   value:"Speaks",
                   angle: -90,
@@ -101,7 +102,8 @@ const PerformanceCard = ({ debateData }: PerformanceCardProps) => {
               <YAxis
                 yAxisId="points"
                 orientation="right"
-                domain={["auto", "auto"]}
+                domain={[0,3]}
+                tickFormatter={(value: number) => value.toFixed(2)}
                 label={{
                   value:"Points",
                   angle: 90,
