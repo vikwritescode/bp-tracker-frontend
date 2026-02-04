@@ -11,6 +11,7 @@ import ImportDebates from "./routes/ImportDebates";
 import AddDebate from "./routes/AddDebate";
 import { ThemeProvider } from "@/components/theme-provider";
 import AddTournaments from "./routes/AddTournaments";
+import Tournaments from "./routes/Tournaments";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <AddTournaments />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "tournaments",
+        element: (
+          <ProtectedRoute>
+            <Tournaments />
           </ProtectedRoute>
         ),
       },
