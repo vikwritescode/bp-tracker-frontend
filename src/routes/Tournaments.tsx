@@ -14,9 +14,20 @@ import { Trash, AlertCircleIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { type TournamentRecord } from "@/interfaces";
-import { Dialog, DialogContent, DialogHeader, DialogClose, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Plus } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogClose,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { useNavigate } from "react-router-dom";
 
 const Tournaments = () => {
+  const navigate = useNavigate();
   const { user } = useContext(Context);
   const [tournamentArr, setTournamentArr] = useState([]);
   const [load, setLoad] = useState(true);
@@ -96,7 +107,7 @@ const Tournaments = () => {
         <Alert variant="destructive" className="mt-6">
           <AlertCircleIcon className="h-4 w-4" />
           <AlertTitle className="text-left mb-1">
-            Error retrieving debate history
+            Error retrieving tournament history
           </AlertTitle>
           <AlertDescription>Please reload the page.</AlertDescription>
         </Alert>
@@ -124,6 +135,16 @@ const Tournaments = () => {
                 onClick={() => handleSort("name")}
               >
                 Tournament
+              </TableHead>
+              <TableHead>
+                <Button
+                  // size="icon"
+                  variant="ghost"
+                  // variant="outline"
+                  onClick={() => navigate("/add-tournaments")}
+                >
+                  <Plus />
+                </Button>
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -175,7 +196,8 @@ const Tournaments = () => {
                         <DialogHeader>
                           <DialogTitle>Delete Tournament</DialogTitle>
                           <DialogDescription>
-                            Are you sure you want to delete {rec["name"]} and all associated debates?
+                            Are you sure you want to delete {rec["name"]} and
+                            all associated debates?
                           </DialogDescription>
                         </DialogHeader>
                         <div className="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-end gap-2 sm:gap-3 p-6 sm:p-0 -m-6 sm:m-0">

@@ -71,20 +71,10 @@ const NavBar = () => {
                   <NavigationMenuItem>
                     <NavigationMenuLink asChild>
                       <NavLink
-                        to="/add"
+                        to="/tournaments"
                         className="whitespace-nowrap overflow-hidden text-ellipssis"
                       >
-                        Add Debate
-                      </NavLink>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                  <NavigationMenuItem>
-                    <NavigationMenuLink asChild>
-                      <NavLink
-                        to="/add-tournaments"
-                        className="whitespace-nowrap overflow-hidden text-ellipssis"
-                      >
-                        Add Tournament
+                        Tournaments
                       </NavLink>
                     </NavigationMenuLink>
                   </NavigationMenuItem>
@@ -117,7 +107,7 @@ const NavBar = () => {
                   <DropdownMenuItem asChild>
                     <NavLink to="/help">Help</NavLink>
                   </DropdownMenuItem>
-                  </>
+                </>
               ) : (
                 <>
                   <DropdownMenuItem asChild>
@@ -157,6 +147,14 @@ const NavBar = () => {
                     className="text-base font-medium hover:text-primary"
                   >
                     Debates
+                  </NavLink>
+                </SheetClose>
+                <SheetClose asChild>
+                  <NavLink
+                    to="/tournaments"
+                    className="text-base font-medium hover:text-primary"
+                  >
+                    Tournaments
                   </NavLink>
                 </SheetClose>
                 <SheetClose asChild>
