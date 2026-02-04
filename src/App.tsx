@@ -75,13 +75,14 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
         path: "help",
         element: (
           <ProtectedRoute>
             <Help />
           </ProtectedRoute>
         ),
-      }
+      },
     ],
   },
 ]);
