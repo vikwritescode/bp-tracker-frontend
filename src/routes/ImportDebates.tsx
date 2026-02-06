@@ -91,7 +91,6 @@ const ImportDebates = () => {
     try {
       setNameLoad(true);
       setNameError(false);
-
       // fetch speaker
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/speakers?url=${encodeURIComponent(
@@ -127,21 +126,23 @@ const ImportDebates = () => {
       );
       if (!dateResponse.ok) {
         const t = await dateResponse.json();
-        throw new Error(t.detail);
+        setNameError(true);
+        setErrorMessage(t.detail);
+      } else {
+        // if date response is good
+        const dateJson = await dateResponse.json();
+        // set tourney date
+        const tDate = new Date(dateJson);
+        console.log(tDate);
+        setDate(tDate);
+        setMonth(tDate);
       }
-      const dateJson = await dateResponse.json();
       const json = await response.json();
       console.log(json);
 
       // set name related stuff
       setNames(json);
       setSelectedName(json[0].url);
-
-      // set tourney date
-      const tDate = new Date(dateJson);
-      console.log(tDate);
-      setDate(tDate);
-      setMonth(tDate);
     } catch (err) {
       console.error(err);
       setFetchedNames(false);
@@ -308,7 +309,7 @@ const ImportDebates = () => {
             <Alert variant="destructive" hidden={!nameError}>
               <AlertCircleIcon className="h-4 w-4" />
               <AlertTitle className="text-left">
-                Unable to fetch speaker
+                Error fetching data
               </AlertTitle>
               <AlertDescription className="text-left">
                 {errorMessage}
