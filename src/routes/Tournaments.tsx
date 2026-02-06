@@ -142,9 +142,8 @@ const Tournaments = () => {
                 : <ChevronsDown color="0000000" className="inline w-auto size-10/24 pl-1" />}</TableHead>
               <TableHead>
                 <Button
-                  // size="icon"
+                  size="icon"
                   variant="ghost"
-                  // variant="outline"
                   onClick={() => navigate("/add-tournaments")}
                 >
                   <Plus />

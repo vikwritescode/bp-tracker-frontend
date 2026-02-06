@@ -115,7 +115,7 @@ const Dashboard = () => {
               className="w-full"
               onValueChange={handleTabChange}
             >
-              <TabsList className="grid w-full md:w-fit grid-cols-2 h-12">
+              <TabsList className="grid w-full md:w-fit grid-cols-2 h-12 bg-card border pb-8.25">
                 <TabsTrigger value="year">Past Year</TabsTrigger>
                 <TabsTrigger value="all">All Time</TabsTrigger>
               </TabsList>

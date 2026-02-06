@@ -168,9 +168,8 @@ const Debates = () => {
               <TableHead>Type</TableHead>
               <TableHead>
                 <Button
-                  // size="icon"
+                  size="icon"
                   variant="ghost"
-                  // variant="outline"
                   onClick={() => navigate("/add")}
                 >
                   <Plus />
