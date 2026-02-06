@@ -61,7 +61,8 @@ const ImportDebates = () => {
         },
       );
       if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        const t = await response.json();
+        throw new Error(t.detail);
       }
       const json = await response.json();
 
@@ -73,7 +74,13 @@ const ImportDebates = () => {
       setFetchedTouraments(false);
       setError(true);
       const message = err instanceof Error ? err.message : String(err);
-      setErrorMessage(message);
+      if (message === "tab auth") {
+        setErrorMessage(
+          "Some API endpoints are blocked. This is controlled by the tournament's tab team, and is not a bug.",
+        );
+      } else {
+        setErrorMessage(message);
+      }
     } finally {
       setLoad(false);
     }
@@ -101,7 +108,8 @@ const ImportDebates = () => {
         },
       );
       if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        const t = await response.json();
+        throw new Error(t.detail);
       }
 
       // fetch date
@@ -118,9 +126,8 @@ const ImportDebates = () => {
         },
       );
       if (!dateResponse.ok) {
-        throw new Error(
-          `HTTP ${dateResponse.status}: ${dateResponse.statusText}`,
-        );
+        const t = await dateResponse.json();
+        throw new Error(t.detail);
       }
       const dateJson = await dateResponse.json();
       const json = await response.json();
@@ -140,7 +147,13 @@ const ImportDebates = () => {
       setFetchedNames(false);
       setNameError(true);
       const message = err instanceof Error ? err.message : String(err);
-      setErrorMessage(message);
+      if (message === "tab auth") {
+        setErrorMessage(
+          "Some API endpoints are blocked. This is controlled by the tournament's tab team, and is not a bug.",
+        );
+      } else {
+        setErrorMessage(message);
+      }
     } finally {
       setNameLoad(false);
     }
@@ -169,7 +182,8 @@ const ImportDebates = () => {
         },
       );
       if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        const t = await response.json();
+        throw new Error(t.detail);
       }
       const json = await response.json();
       console.log(json);
@@ -178,7 +192,15 @@ const ImportDebates = () => {
       console.error(err);
       setTabError(true);
       const message = err instanceof Error ? err.message : String(err);
-      setErrorMessage(message);
+      if (message === "tab auth") {
+        setErrorMessage(
+          "Some API endpoints are blocked. This is controlled by the tournament's tab team, and is not a bug.",
+        );
+      } else if (message === "tab broken") {
+        setErrorMessage("This tab is broken.");
+      } else {
+        setErrorMessage(message);
+      }
     } finally {
       setTabLoad(false);
     }
@@ -217,7 +239,8 @@ const ImportDebates = () => {
                 Unable to fetch from tab URL
               </AlertTitle>
               <AlertDescription className="text-left">
-                {errorMessage} Make sure the URL is correct, and that only the tab URL is present.
+                {errorMessage} Make sure the URL is correct, and that only the
+                tab URL is present.
               </AlertDescription>
             </Alert>
 
@@ -288,7 +311,7 @@ const ImportDebates = () => {
                 Unable to fetch speaker
               </AlertTitle>
               <AlertDescription className="text-left">
-                {errorMessage}. Make sure at least a portion of the name is present and correct.
+                {errorMessage}
               </AlertDescription>
             </Alert>
 
@@ -351,7 +374,9 @@ const ImportDebates = () => {
                       <AlertTitle className="text-left">
                         Unable to import records
                       </AlertTitle>
-                      <AlertDescription className="text-left">{errorMessage}</AlertDescription>
+                      <AlertDescription className="text-left">
+                        {errorMessage}
+                      </AlertDescription>
                     </Alert>
                   </div>
                 </div>
