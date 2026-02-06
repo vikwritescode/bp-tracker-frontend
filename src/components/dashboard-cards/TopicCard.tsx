@@ -7,7 +7,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { ChevronsUp, ChevronsDown } from "lucide-react";
 import { useState } from "react";
+import { Chevron } from "react-day-picker";
 interface TopicCardProps {
   debateData: Array<any>;
 }
@@ -49,22 +51,31 @@ const TopicCard = ({ debateData }: TopicCardProps) => {
             <TableRow>
               <TableHead>Category</TableHead>
               <TableHead
-                className="cursor-pointer hover:underline hover:text-secondary-foreground"
+                className="cursor-pointer hover:underline hover:text-secondary-foreground pl-7"
                 onClick={() => handleSort(0)}
               >
                 Average Points
-              </TableHead>
+                {sortBy === 0 ?
+                (ascending ? <ChevronsDown className="inline w-auto size-10/24" /> : <ChevronsUp className="inline w-auto size-10/24" />)
+                : <ChevronsDown color="0000000" className="inline w-auto size-10/24" />}
+               </TableHead>
               <TableHead
                 onClick={() => handleSort(1)}
-                className="cursor-pointer hover:underline hover:text-secondary-foreground"
+                className="cursor-pointer hover:underline hover:text-secondary-foreground pl-7"
               >
                 Average Speaks
+                {sortBy === 1 ?
+                (ascending ? <ChevronsDown className="inline w-auto size-10/24" /> : <ChevronsUp className="inline w-auto size-10/24" />)
+                : <ChevronsDown color="0000000" className="inline w-auto size-10/24" />}
               </TableHead>
               <TableHead
-                className="cursor-pointer hover:underline hover:text-secondary-foreground"
+                className="cursor-pointer hover:underline hover:text-secondary-foreground pl-7"
                 onClick={() => handleSort(2)}
               >
                 Count
+                {sortBy === 2 ?
+                (ascending ? <ChevronsDown className="inline w-auto size-10/24" /> : <ChevronsUp className="inline w-auto size-10/24" />)
+                : <ChevronsDown color="0000000" className="inline w-auto size-10/24" />}
               </TableHead>
             </TableRow>
           </TableHeader>
