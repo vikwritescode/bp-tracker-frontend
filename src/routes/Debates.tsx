@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Trash, AlertCircleIcon, Plus } from "lucide-react";
+import { Trash, AlertCircleIcon, Plus, ChevronsUp, ChevronsDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { Badge } from "@/components/ui/badge";
@@ -127,30 +127,41 @@ const Debates = () => {
                 onClick={() => handleSort("date")}
               >
                 Date
-              </TableHead>
+                {sortBy === "date" ?
+                (ascending ? <ChevronsDown className="inline w-auto size-10/24" /> : <ChevronsUp className="inline w-auto size-10/24" />)
+                : <ChevronsDown color="0000000" className="inline w-auto size-10/24" />}</TableHead>
               <TableHead
                 className="cursor-pointer hover:underline hover:text-secondary-foreground"
                 onClick={() => handleSort("tournament")}
               >
                 Tournament
-              </TableHead>
+                {sortBy === "tournament" ?
+                (ascending ? <ChevronsDown className="inline w-auto size-10/24" /> : <ChevronsUp className="inline w-auto size-10/24" />)
+                : <ChevronsDown color="0000000" className="inline w-auto size-10/24" />}</TableHead>
               <TableHead
                 className="cursor-pointer hover:underline hover:text-secondary-foreground"
                 onClick={() => handleSort("position")}
               >
                 Position
-              </TableHead>
+                {sortBy === "position" ?
+                (ascending ? <ChevronsDown className="inline w-auto size-10/24" /> : <ChevronsUp className="inline w-auto size-10/24" />)
+                : <ChevronsDown color="0000000" className="inline w-auto size-10/24" />}</TableHead>
               <TableHead
                 className="cursor-pointer hover:underline hover:text-secondary-foreground"
                 onClick={() => handleSort("points")}
               >
                 Points
-              </TableHead>
+                {sortBy === "points" ?
+                (ascending ? <ChevronsDown className="inline w-auto size-10/24" /> : <ChevronsUp className="inline w-auto size-10/24" />)
+                : <ChevronsDown color="0000000" className="inline w-auto size-10/24" />}</TableHead>
               <TableHead
                 className="cursor-pointer hover:underline hover:text-secondary-foreground"
                 onClick={() => handleSort("speaks")}
               >
                 Speaks
+                {sortBy === "speaks" ?
+                (ascending ? <ChevronsDown className="inline w-auto size-10/24" /> : <ChevronsUp className="inline w-auto size-10/24" />)
+                : <ChevronsDown color="0000000" className="inline w-auto size-10/24" />}
               </TableHead>
               <TableHead>Info Slide</TableHead>
               <TableHead>Motion</TableHead>
