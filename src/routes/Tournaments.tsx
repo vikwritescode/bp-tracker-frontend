@@ -138,9 +138,8 @@ const Tournaments = () => {
               </TableHead>
               <TableHead>
                 <Button
-                  // size="icon"
+                  size="icon"
                   variant="ghost"
-                  // variant="outline"
                   onClick={() => navigate("/add-tournaments")}
                 >
                   <Plus />
