@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/table";
 import { ChevronsUp, ChevronsDown } from "lucide-react";
 import { useState } from "react";
-import { Chevron } from "react-day-picker";
 interface TopicCardProps {
   debateData: Array<any>;
 }
