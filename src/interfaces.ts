@@ -16,5 +16,8 @@ export interface DebateRecord {
 export interface TournamentRecord {
   id: number;
   name: string;
+  speaker_standing: number;
+  team_standing: number;
+  rooms: number;
   date: string;
 }

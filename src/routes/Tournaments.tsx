@@ -129,17 +129,96 @@ const Tournaments = () => {
                 onClick={() => handleSort("date")}
               >
                 Date
-                {sortBy === "date" ?
-                (ascending ? <ChevronsDown className="inline w-auto size-10/24 pl-1" /> : <ChevronsUp className="inline w-auto size-10/24 pl-1" />)
-                : <ChevronsDown color="0000000" className="inline w-auto size-10/24 pl-1" />}</TableHead>
+                {sortBy === "date" ? (
+                  ascending ? (
+                    <ChevronsDown className="inline w-auto size-10/24 pl-1" />
+                  ) : (
+                    <ChevronsUp className="inline w-auto size-10/24 pl-1" />
+                  )
+                ) : (
+                  <ChevronsDown
+                    color="0000000"
+                    className="inline w-auto size-10/24 pl-1"
+                  />
+                )}
+              </TableHead>
               <TableHead
                 className="cursor-pointer hover:underline hover:text-secondary-foreground"
                 onClick={() => handleSort("name")}
               >
                 Tournament
-                {sortBy === "name" ?
-                (ascending ? <ChevronsDown className="inline w-auto size-10/24 pl-1" /> : <ChevronsUp className="inline w-auto size-10/24 pl-1" />)
-                : <ChevronsDown color="0000000" className="inline w-auto size-10/24 pl-1" />}</TableHead>
+                {sortBy === "name" ? (
+                  ascending ? (
+                    <ChevronsDown className="inline w-auto size-10/24 pl-1" />
+                  ) : (
+                    <ChevronsUp className="inline w-auto size-10/24 pl-1" />
+                  )
+                ) : (
+                  <ChevronsDown
+                    color="0000000"
+                    className="inline w-auto size-10/24 pl-1"
+                  />
+                )}
+              </TableHead>
+
+              <TableHead
+                className="cursor-pointer hover:underline hover:text-secondary-foreground"
+                onClick={() => handleSort("team_standing")}
+              >
+                Team Rank
+                {sortBy === "team_standing" ? (
+                  ascending ? (
+                    <ChevronsDown className="inline w-auto size-10/24 pl-1" />
+                  ) : (
+                    <ChevronsUp className="inline w-auto size-10/24 pl-1" />
+                  )
+                ) : (
+                  <ChevronsDown
+                    color="0000000"
+                    className="inline w-auto size-10/24 pl-1"
+                  />
+                )}
+              </TableHead>
+
+              <TableHead
+                className="cursor-pointer hover:underline hover:text-secondary-foreground"
+                onClick={() => handleSort("speaker_standing")}
+              >
+                Speaker Rank
+                {sortBy === "speaker_standing" ? (
+                  ascending ? (
+                    <ChevronsDown className="inline w-auto size-10/24 pl-1" />
+                  ) : (
+                    <ChevronsUp className="inline w-auto size-10/24 pl-1" />
+                  )
+                ) : (
+                  <ChevronsDown
+                    color="0000000"
+                    className="inline w-auto size-10/24 pl-1"
+                  />
+                )}
+              </TableHead>
+
+
+              <TableHead
+                className="cursor-pointer hover:underline hover:text-secondary-foreground"
+                onClick={() => handleSort("rooms")}
+              >
+                Rooms
+                {sortBy === "rooms" ? (
+                  ascending ? (
+                    <ChevronsDown className="inline w-auto size-10/24 pl-1" />
+                  ) : (
+                    <ChevronsUp className="inline w-auto size-10/24 pl-1" />
+                  )
+                ) : (
+                  <ChevronsDown
+                    color="0000000"
+                    className="inline w-auto size-10/24 pl-1"
+                  />
+                )}
+              </TableHead>
+
               <TableHead>
                 <Button
                   size="icon"
@@ -181,6 +260,9 @@ const Tournaments = () => {
                 <TableRow>
                   <TableCell>{rec["date"]}</TableCell>
                   <TableCell>{rec["name"]}</TableCell>
+                  <TableCell>{rec["team_standing"]}</TableCell>
+                  <TableCell>{rec["speaker_standing"]}</TableCell>
+                  <TableCell>{rec["rooms"]}</TableCell>
                   <TableCell>
                     <Dialog>
                       <DialogTrigger asChild>
