@@ -10,6 +10,7 @@ interface PerformanceCardProps {
 interface PerformanceEntry {
   name: string;
   date: string;
+  timestamp: number;
   avgPoints: number;
   avgSpeaks: number;
 }
@@ -22,6 +23,7 @@ const PerformanceCard = ({ debateData }: PerformanceCardProps) => {
     type AccType = {
       name: string;
       date: string;
+      timestamp: number;
       sumPoints: number;
       sumSpeaks: number;
       count: number;
@@ -34,6 +36,7 @@ const PerformanceCard = ({ debateData }: PerformanceCardProps) => {
             acc[id] = {
               name: curr.tournament,
               date: curr.date,
+              timestamp: new Date(curr.date).getTime(),
               sumPoints: 0,
               sumSpeaks: 0,
               count: 0,
@@ -53,16 +56,16 @@ const PerformanceCard = ({ debateData }: PerformanceCardProps) => {
       return {
         name: x.name,
         date: x.date,
+        timestamp: x.timestamp,
         avgPoints: x.sumPoints / x.count || 0,
         avgSpeaks: x.sumSpeaks / x.count || 0,
       };
     });
     lineChartData.sort(
-      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+      (a, b) => a.timestamp - b.timestamp,
     );
 
     setPerformanceData(lineChartData);
-    console.log(lineChartData);
   }, [debateData]);
   const chartConfig = {
     avgSpeaks: {
@@ -83,20 +86,28 @@ const PerformanceCard = ({ debateData }: PerformanceCardProps) => {
         <div className="overflow-x-auto">
           <ChartContainer
             config={chartConfig}
-            className="h-[250px] w-full min-w-[500px] sm:h-[400px]"
+            className="h-62.5 w-full min-w-125 sm:h-100"
           >
             <LineChart data={performanceData} className="w-full">
               <CartesianGrid vertical={false} />
-              <XAxis dataKey={"date"} />
+              <XAxis
+                dataKey="timestamp"
+                type="number"
+                scale="time"
+                domain={["dataMin", "dataMax"]}
+                tickFormatter={(value: number) =>
+                  new Date(value).toLocaleDateString()
+                }
+              />
               <YAxis
                 yAxisId="speaks"
                 orientation="left"
                 domain={["dataMin-1", "dataMax+1"]}
                 tickFormatter={(value: number) => value.toFixed(2)}
                 label={{
-                  value:"Speaks",
+                  value: "Speaks",
                   angle: -90,
-                  position: "insideLeft"
+                  position: "insideLeft",
                 }}
               />
               <YAxis
@@ -105,16 +116,16 @@ const PerformanceCard = ({ debateData }: PerformanceCardProps) => {
                 domain={[0,3]}
                 tickFormatter={(value: number) => value.toFixed(2)}
                 label={{
-                  value:"Points",
+                  value: "Points",
                   angle: 90,
-                  position: "insideRight"
+                  position: "insideRight",
                 }}
               />
               <ChartTooltip
                 cursor={false}
                 content={
                   <ChartTooltipContent
-                    className="w-[200px] gap-4"
+                    className="w-50 gap-4"
                     labelFormatter={(_, payload) => payload[0]?.payload?.name}
                   />
                 }
@@ -137,7 +148,7 @@ const PerformanceCard = ({ debateData }: PerformanceCardProps) => {
                 type="monotone"
                 dot={false}
               />
-              <Legend  />
+              <Legend />
             </LineChart>
           </ChartContainer>
         </div>
