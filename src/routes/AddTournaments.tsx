@@ -23,13 +23,15 @@ import { Button } from "@/components/ui/button";
 const AddTournaments = () => {
   const [date, setDate] = useState<Date>(new Date());
   const [name, setName] = useState("");
-
+  const [partner, setPartner] = useState("");
+  const [teamRank, setTeamRank] = useState(0);
+  const [speakerRank, setSpeakerRank] = useState(0);
+  const [rooms, setRooms] = useState(0);
 
   const [open, setOpen] = useState(false);
   const [dataValidError, setDataValidError] = useState(false);
   const [load, setLoad] = useState(false);
   const [error, setError] = useState(false);
-
 
   const { user } = useContext(Context);
   const navigate = useNavigate();
@@ -39,10 +41,20 @@ const AddTournaments = () => {
     const tournData = {
       date: date.toISOString().slice(0, 10),
       name: name,
+      partner: partner,
+      team_rank: teamRank,
+      speaker_rank: speakerRank,
+      rooms: rooms,
     };
 
-
-    if (tournData.name.trim() !== "" && tournData.date !== undefined) {
+    if (
+      tournData.name.trim() !== "" &&
+      tournData.date !== undefined &&
+      tournData.team_rank >= 0 &&
+      tournData.speaker_rank >= 0 &&
+      tournData.rooms >= 0 &&
+      tournData.partner.trim() !== ""
+    ) {
       try {
         setLoad(true);
         setError(false);
@@ -80,7 +92,9 @@ const AddTournaments = () => {
       <div>
         <Card className="mx-auto max-w-xl">
           <CardHeader>
-            <CardTitle className="text-3xl font-semibold">Add Tournament</CardTitle>
+            <CardTitle className="text-3xl font-semibold">
+              Add Tournament
+            </CardTitle>
           </CardHeader>
 
           <CardContent className="space-y-6">
@@ -94,19 +108,27 @@ const AddTournaments = () => {
             <Alert variant="destructive" hidden={!error}>
               <AlertCircleIcon className="h-4 w-4" />
               <AlertTitle className="text-left">API error</AlertTitle>
-              <AlertDescription>The API was unable to process your request.</AlertDescription>
+              <AlertDescription>
+                The API was unable to process your request.
+              </AlertDescription>
             </Alert>
             <div className="grid gap-4">
               {/* Date */}
               <div className="space-y-1.5">
-                <h3 className="text-sm text-left font-medium">Date</h3>
+                <h3 className="text-sm font-medium">Tournament Date</h3>
                 <Popover open={open} onOpenChange={setOpen}>
                   <PopoverTrigger asChild>
                     <Button
                       variant="outline"
                       className="h-9 w-full justify-start text-left text-sm"
                     >
-                      {date ? date.toLocaleDateString(undefined, {day:"2-digit", month:"2-digit", year:"numeric"}) : "Pick a date"}
+                      {date
+                        ? date.toLocaleDateString(undefined, {
+                            day: "2-digit",
+                            month: "2-digit",
+                            year: "numeric",
+                          })
+                        : "Pick a date"}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="p-0">
@@ -124,19 +146,58 @@ const AddTournaments = () => {
                   </PopoverContent>
                 </Popover>
               </div>
-
-
             </div>
             <div className="space-y-1.5">
-              <h3 className="text-sm font-medium text-left">Name</h3>
+              <h3 className="text-sm font-medium">Tournament Name</h3>
               <Input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Tournament name"
               />
             </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-1.5">
+                <h3 className="text-sm font-medium">Team Rank</h3>
+                <Input
+                  value={teamRank}
+                  min={0}
+                  type="number"
+                  onChange={(e) => setTeamRank(Number(e.target.value))}
+                  placeholder="Team rank"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <h3 className="text-sm font-medium">Speaker Rank</h3>
+                <Input
+                  value={speakerRank}
+                  min={0}
+                  type="number"
+                  onChange={(e) => setSpeakerRank(Number(e.target.value))}
+                  placeholder="Speaker rank"
+                />
+              </div>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-1.5">
+                <h3 className="text-sm font-medium">Rooms</h3>
+                <Input
+                  value={rooms}
+                  min={0}
+                  type="number"
+                  onChange={(e) => setRooms(Number(e.target.value))}
+                  placeholder="Number of rooms"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <h3 className="text-sm font-medium">Partner</h3>
+                <Input
+                  value={partner}
+                  onChange={(e) => setPartner(e.target.value)}
+                  placeholder="Partner name"
+                />
+              </div>
+            </div>
           </CardContent>
-
 
           <CardFooter className="px-6">
             <Button className="w-full" onClick={handleAdd} disabled={load}>
@@ -148,6 +209,5 @@ const AddTournaments = () => {
     </div>
   );
 };
-
 
 export default AddTournaments;
