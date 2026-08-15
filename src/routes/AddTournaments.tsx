@@ -8,6 +8,13 @@ import { Spinner } from "@/components/ui/spinner";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Card,
   CardHeader,
   CardContent,
@@ -23,6 +30,7 @@ import { Button } from "@/components/ui/button";
 const AddTournaments = () => {
   const [date, setDate] = useState<Date>(new Date());
   const [name, setName] = useState("");
+  const [format, setFormat] = useState("BP");
   const [partner, setPartner] = useState("");
   const [teamRank, setTeamRank] = useState(0);
   const [speakerRank, setSpeakerRank] = useState(0);
@@ -41,6 +49,7 @@ const AddTournaments = () => {
     const tournData = {
       date: date.toISOString().slice(0, 10),
       name: name,
+      t_format: format,
       partner: partner,
       team_rank: teamRank,
       speaker_rank: speakerRank,
@@ -53,6 +62,7 @@ const AddTournaments = () => {
       tournData.team_rank >= 0 &&
       tournData.speaker_rank >= 0 &&
       tournData.rooms >= 0 &&
+      ["BP", "WSDC", "AUS"].includes(tournData.t_format) &&
       tournData.partner.trim() !== ""
     ) {
       try {
@@ -189,13 +199,27 @@ const AddTournaments = () => {
                 />
               </div>
               <div className="space-y-1.5">
-                <h3 className="text-sm font-medium">Partner</h3>
-                <Input
-                  value={partner}
-                  onChange={(e) => setPartner(e.target.value)}
-                  placeholder="Partner name"
-                />
+                <h3 className="text-sm font-medium">Format</h3>
+                <Select value={format} onValueChange={setFormat}>
+                  <SelectTrigger className="h-9 w-full text-sm">
+                    <SelectValue placeholder="Select format" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="BP">BP</SelectItem>
+                    <SelectItem value="WSDC">WSDC</SelectItem>
+                    <SelectItem value="AUS">Australs</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
+            </div>
+            <div className="space-y-1.5">
+              <h3 className="text-sm font-medium">Partner</h3>
+              <Input
+                value={partner}
+                onChange={(e) => setPartner(e.target.value)}
+                placeholder="Partner name"
+                className="w-full"
+              />
             </div>
           </CardContent>
 
