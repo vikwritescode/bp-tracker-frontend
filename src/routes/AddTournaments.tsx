@@ -6,6 +6,7 @@ import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { AlertCircleIcon } from "lucide-react";
 import { Spinner } from "@/components/ui/spinner";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -85,7 +86,10 @@ const AddTournaments = () => {
         }
         const json = await response.json();
         console.log(json);
-        navigate("/debates");
+        toast("Tournament created", {
+          description: "Manually add a debate to this tournament to track results.",
+        });
+        navigate("/add");
       } catch (err) {
         console.error(err);
         setError(true);
