@@ -16,6 +16,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Card,
   CardHeader,
@@ -32,14 +33,20 @@ import { Button } from "@/components/ui/button";
 const AddDebate = () => {
   const [date, setDate] = useState<Date>(new Date());
   const [pos, setPos] = useState("OG");
+  const [order, setOrder] = useState("1");
   const [points, setPoints] = useState("");
   const [speaks, setSpeaks] = useState("");
   const [infoSlide, setInfoSlide] = useState("");
   const [motion, setMotion] = useState("");
   const [tournament, setTournament] = useState("");
+  // an empty string means we don't know, let the user select pos3 & reply
+  const [tournamentFormat, setTournamentFormat] = useState("");
   const [tournamentArr, setTournamentArr] = useState<Array<TournamentRecord>>(
     [],
   );
+  const [hasReply, setHasReply] = useState(false);
+  const [replySpeaks, setReplySpeaks] = useState(0);
+
   const [errorMessage, setErrorMessage] = useState("");
   const [tournamentSelected, setTournamentSelected] = useState(false);
 
@@ -88,7 +95,11 @@ const AddDebate = () => {
       speaks: parseInt(speaks),
       infoslide: infoSlide,
       motion: motion,
+      order: parseInt(order),
+      reply_speaks: tournamentFormat === "BP" ? replySpeaks : undefined,
+      has_reply: tournamentFormat === "BP" ? hasReply : false,
     };
+    alert(debateData.order);
     const valid = ["OG", "OO", "CG", "CO"];
     if (
       valid.includes(debateData.position) &&
@@ -136,11 +147,13 @@ const AddDebate = () => {
 
     if (e === "default") {
       setTournamentSelected(false);
+      setTournamentFormat("");
     } else {
       const selectedTourn = tournamentArr.find((t) => t.id.toString() === e);
       if (selectedTourn) {
         setDate(new Date(selectedTourn.date));
         setTournamentSelected(true);
+        setTournamentFormat(selectedTourn.format);
       }
     }
   };
@@ -156,9 +169,7 @@ const AddDebate = () => {
             <Alert variant="destructive" hidden={!error}>
               <AlertCircleIcon className="h-4 w-4" />
               <AlertTitle className="text-left">Tournaments error</AlertTitle>
-              <AlertDescription>
-                {errorMessage}
-              </AlertDescription>
+              <AlertDescription>{errorMessage}</AlertDescription>
             </Alert>
             <Alert variant="destructive" hidden={!dataValidError}>
               <AlertCircleIcon className="h-4 w-4" />
@@ -170,24 +181,26 @@ const AddDebate = () => {
             <Alert variant="destructive" hidden={!error}>
               <AlertCircleIcon className="h-4 w-4" />
               <AlertTitle className="text-left">API error</AlertTitle>
-              <AlertDescription>The API was unable to process your request.</AlertDescription>
+              <AlertDescription>
+                The API was unable to process your request.
+              </AlertDescription>
             </Alert>
-            <div className="space-y-1.5">
-              <h3 className="text-sm font-medium">Tournament</h3>
-              <Select onValueChange={selectTournament}>
-                <SelectTrigger className="h-9 w-full text-sm">
-                  <SelectValue placeholder="Tournament" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="default">No Tournament</SelectItem>
-                  {tournamentArr.map((x) => (
-                    <SelectItem value={x.id.toString()}>{x.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
             {/* 1 column on mobile, 2×2 on sm+ */}
             <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-1.5">
+                <h3 className="text-sm font-medium">Tournament</h3>
+                <Select onValueChange={selectTournament}>
+                  <SelectTrigger className="h-9 w-full text-sm">
+                    <SelectValue placeholder="Tournament" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="default">No Tournament</SelectItem>
+                    {tournamentArr.map((x) => (
+                      <SelectItem value={x.id.toString()}>{x.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
               {/* Date */}
               <div className="space-y-1.5">
                 <h3 className="text-sm font-medium">Date</h3>
@@ -198,7 +211,13 @@ const AddDebate = () => {
                       className="h-9 w-full justify-start text-left text-sm"
                       disabled={tournamentSelected}
                     >
-                      {date ? date.toLocaleDateString(undefined, {day:"2-digit", month:"2-digit", year:"numeric"}) : "Pick a date"}
+                      {date
+                        ? date.toLocaleDateString(undefined, {
+                            day: "2-digit",
+                            month: "2-digit",
+                            year: "numeric",
+                          })
+                        : "Pick a date"}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="p-0">
@@ -232,6 +251,22 @@ const AddDebate = () => {
                   </SelectContent>
                 </Select>
               </div>
+              {/* Order */}
+              <div className="space-y-1.5">
+                <h3 className="text-sm font-medium">Order</h3>
+                <Select value={order} onValueChange={setOrder}>
+                  <SelectTrigger className="h-9 w-full text-sm">
+                    <SelectValue placeholder="Order" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="1">1 (Spoke First)</SelectItem>
+                    <SelectItem value="2">2 (Spoke Second)</SelectItem>
+                    <SelectItem value="3" hidden={tournamentFormat == "BP"}>
+                      3 (Spoke Third)
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
               {/* Points */}
               <div className="space-y-1.5">
@@ -262,6 +297,49 @@ const AddDebate = () => {
                   placeholder="50–100"
                 />
               </div>
+            </div>
+
+            <div
+              hidden={tournamentFormat === "BP"}
+              className="grid gap-4 sm:grid-cols-2"
+            >
+              <div className="space-y-1.5">
+                <div className="h-9 flex items-center space-x-2">
+                  <Checkbox
+                    id="has-reply"
+                    checked={hasReply}
+                    onCheckedChange={(checked) =>
+                      setHasReply(checked as boolean)
+                    }
+                  />
+                  <label
+                    htmlFor="has-reply"
+                    className="text-sm font-medium leading-none cursor-pointer"
+                  >
+                    Gave Reply Speech
+                  </label>
+                </div>
+              </div>
+
+              {hasReply ? (
+                <div className="space-y-1.5">
+                  <h3 className="text-sm font-medium">Reply Speaks</h3>
+                  <Input
+                    type="number"
+                    inputMode="decimal"
+                    min={0}
+                    max={50}
+                    value={replySpeaks}
+                    onChange={(e) => setReplySpeaks(Number(e.target.value))}
+                    className="h-9 w-full px-2 text-sm"
+                    placeholder="0–50"
+                  />
+                </div>
+              ) : (
+                <div className="space-y-1.5">
+                  <div className="h-9" />
+                </div>
+              )}
             </div>
 
             <div className="space-y-1.5">
