@@ -99,7 +99,6 @@ const AddDebate = () => {
       reply_speaks: tournamentFormat === "BP" ? replySpeaks : undefined,
       has_reply: tournamentFormat === "BP" ? hasReply : false,
     };
-    alert(debateData.order);
     const valid = ["OG", "OO", "CG", "CO"];
     if (
       valid.includes(debateData.position) &&
