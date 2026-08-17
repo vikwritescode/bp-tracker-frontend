@@ -21,6 +21,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import CategoryBadge from "@/components/CategoryBadge";
+import { renderTournamentWithEmoji } from "@/lib/emojiMap";
 import { type DebateRecord } from "@/interfaces";
 
 import {
@@ -318,7 +319,7 @@ const Debates = () => {
                   <TableCell>
                     {rec["date"] == null ? rec["legacy_date"] : rec["date"]}
                   </TableCell>
-                  <TableCell>{rec["tournament"]}</TableCell>
+                  <TableCell>{renderTournamentWithEmoji(rec["tournament"])}</TableCell>
                   <TableCell>{rec["position"]}</TableCell>
                   <TableCell>{rec["points"]}</TableCell>
                   <TableCell>{Math.round(rec["speaks"] * 100) / 100}</TableCell>

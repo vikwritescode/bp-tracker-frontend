@@ -1,15 +1,9 @@
 import { Badge } from "@/components/ui/badge";
+import { getCategoryEmoji, normalizeCategory } from "@/lib/emojiMap";
 
 interface CategoryBadgeProps {
   category: string;
 }
-
-const normalizeCategory = (value: string) =>
-  value
-    .trim()
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/\s+/g, " ");
 
 const hashString = (value: string) => {
   let hash = 0;
@@ -76,7 +70,10 @@ const CategoryBadge = (props: CategoryBadgeProps) => {
         props.category
       )}`}
     >
-      {props.category}
+      <span className="inline-flex items-center gap-1">
+        <span>{getCategoryEmoji(props.category)}</span>
+        <span>{props.category}</span>
+      </span>
     </Badge>
   );
 };

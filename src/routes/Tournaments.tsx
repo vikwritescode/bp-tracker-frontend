@@ -36,6 +36,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { renderTournamentWithEmoji } from "@/lib/emojiMap";
 
 const Tournaments = () => {
   type SortKey =
@@ -480,7 +481,7 @@ const Tournaments = () => {
               .map((rec: TournamentRecord, i) => (
                 <TableRow>
                   <TableCell>{rec["date"]}</TableCell>
-                  <TableCell>{rec["name"]}</TableCell>
+                  <TableCell>{renderTournamentWithEmoji(rec["name"])}</TableCell>
                   <TableCell>{rec["team_standing"]}</TableCell>
                   <TableCell>{rec["speaker_standing"]}</TableCell>
                   <TableCell>{rec["rooms"]}</TableCell>
@@ -507,7 +508,7 @@ const Tournaments = () => {
                         <DialogHeader>
                           <DialogTitle>Delete Tournament</DialogTitle>
                           <DialogDescription>
-                            Are you sure you want to delete {rec["name"]} and
+                            Are you sure you want to delete {renderTournamentWithEmoji(rec["name"])} and
                             all associated debates?
                           </DialogDescription>
                         </DialogHeader>
