@@ -1,8 +1,22 @@
 import type { DebateRecord } from "@/interfaces";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { Line, LineChart, XAxis, CartesianGrid, YAxis, Legend } from "recharts";
+import {
+  Line,
+  LineChart,
+  XAxis,
+  CartesianGrid,
+  YAxis,
+  Symbols,
+} from "recharts";
 import { useEffect, useState } from "react";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "../ui/chart";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+} from "../ui/chart";
+import { Circle, Triangle, type LucideProps } from "lucide-react";
 
 interface PerformanceCardProps {
   debateData: Array<DebateRecord>;
@@ -14,8 +28,62 @@ interface PerformanceEntry {
   avgPoints: number;
   avgSpeaks: number;
 }
+const FilledTriangle = (props: LucideProps) => (
+  <Triangle
+    {...props}
+    className="h-3 w-3"
+    fill="var(--color-avgSpeaks)"
+    stroke="var(--color-avgSpeaks)"
+  />
+);
 
+const FilledCircle = (props: LucideProps) => (
+  <Circle
+    {...props}
+    className="h-2.5 w-2.5"
+    fill="var(--color-avgPoints)"
+    stroke="var(--color-avgPoints)"
+  />
+);
 const PerformanceCard = ({ debateData }: PerformanceCardProps) => {
+  type SymbolType =
+    | "circle"
+    | "cross"
+    | "diamond"
+    | "square"
+    | "star"
+    | "triangle"
+    | "wye";
+  interface LastActiveDotProps {
+    cx?: number;
+    cy?: number;
+    payload?: PerformanceEntry;
+    shape: SymbolType;
+    fill: string;
+  }
+
+  const LastActiveDot = ({
+    cx,
+    cy,
+    payload,
+    shape,
+    fill,
+  }: LastActiveDotProps) => {
+    if (cx === undefined || cy === undefined || !payload) {
+      return null;
+    }
+
+    const lastItem = performanceData[performanceData.length - 1];
+    const isLastPoint =
+      payload.timestamp === lastItem.timestamp &&
+      payload.name === lastItem.name;
+
+    if (!isLastPoint) {
+      return null;
+    }
+
+    return <Symbols cx={cx} cy={cy} type={shape} size={100} fill={fill} />;
+  };
   const [performanceData, setPerformanceData] = useState<
     Array<PerformanceEntry>
   >([]);
@@ -61,9 +129,7 @@ const PerformanceCard = ({ debateData }: PerformanceCardProps) => {
         avgSpeaks: x.sumSpeaks / x.count || 0,
       };
     });
-    lineChartData.sort(
-      (a, b) => a.timestamp - b.timestamp,
-    );
+    lineChartData.sort((a, b) => a.timestamp - b.timestamp);
 
     setPerformanceData(lineChartData);
   }, [debateData]);
@@ -71,10 +137,12 @@ const PerformanceCard = ({ debateData }: PerformanceCardProps) => {
     avgSpeaks: {
       label: "Average Speaks",
       color: "var(--chart-alt-secondary)",
+      icon: FilledTriangle,
     },
     avgPoints: {
       label: "Average Points",
       color: "var(--chart-secondary)",
+      icon: FilledCircle,
     },
   };
   return (
@@ -113,7 +181,7 @@ const PerformanceCard = ({ debateData }: PerformanceCardProps) => {
               <YAxis
                 yAxisId="points"
                 orientation="right"
-                domain={[0,3]}
+                domain={[0, 3]}
                 tickFormatter={(value: number) => value.toFixed(2)}
                 label={{
                   value: "Points",
@@ -131,24 +199,43 @@ const PerformanceCard = ({ debateData }: PerformanceCardProps) => {
                 }
               />
               <Line
-                name="Average Speaks"
+                // name="Average Speaks"
                 dataKey="avgSpeaks"
                 yAxisId="speaks"
                 stroke="var(--color-avgSpeaks)"
                 strokeWidth={2}
-                type="monotone"
-                dot={false}
+                dot={
+                  <LastActiveDot
+                    shape="triangle"
+                    fill="var(--color-avgSpeaks)"
+                  />
+                }
+                activeDot={
+                  <Symbols
+                    type="triangle"
+                    fill="var(--color-background)"
+                    stroke="var(--color-avgSpeaks)"
+                  />
+                }
               />
               <Line
-                name="Average Points"
+                // name="Average Points"
                 dataKey="avgPoints"
                 yAxisId="points"
                 stroke="var(--color-avgPoints)"
                 strokeWidth={2}
-                type="monotone"
-                dot={false}
+                dot={
+                  <LastActiveDot shape="circle" fill="var(--color-avgPoints)" />
+                }
+                activeDot={
+                  <Symbols
+                    type="circle"
+                    fill="var(--background)"
+                    stroke="var(--color-avgPoints)"
+                  />
+                }
               />
-              <Legend />
+              <ChartLegend content={<ChartLegendContent />} />
             </LineChart>
           </ChartContainer>
         </div>
