@@ -1,15 +1,12 @@
 import { Badge } from "@/components/ui/badge";
+import CategoryIcon from "./CategoryIcon";
 
 interface CategoryBadgeProps {
   category: string;
 }
 
 const normalizeCategory = (value: string) =>
-  value
-    .trim()
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/\s+/g, " ");
+  value.trim().toLowerCase().replace(/&/g, "and").replace(/\s+/g, " ");
 
 const hashString = (value: string) => {
   let hash = 0;
@@ -73,9 +70,10 @@ const CategoryBadge = (props: CategoryBadgeProps) => {
   return (
     <Badge
       className={`text-xs px-2 py-1 rounded-md ${getCategoryClass(
-        props.category
+        props.category,
       )}`}
     >
+      <CategoryIcon category={props.category} />
       {props.category}
     </Badge>
   );

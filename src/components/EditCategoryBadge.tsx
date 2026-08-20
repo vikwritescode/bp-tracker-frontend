@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Trash } from "lucide-react";
+import CategoryIcon from "./CategoryIcon";
 
 interface EditCategoryBadgeProps {
   category: string;
@@ -7,11 +8,7 @@ interface EditCategoryBadgeProps {
 }
 
 const normalizeCategory = (value: string) =>
-  value
-    .trim()
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/\s+/g, " ");
+  value.trim().toLowerCase().replace(/&/g, "and").replace(/\s+/g, " ");
 
 const hashString = (value: string) => {
   let hash = 0;
@@ -75,11 +72,12 @@ const EditCategoryBadge = (props: EditCategoryBadgeProps) => {
   return (
     <Badge
       className={`text-xs px-2 py-1 rounded-md relative cursor-pointer group overflow-hidden hover:border-destructive ${getCategoryClass(
-        props.category
+        props.category,
       )}`}
       onClick={props.onDelete}
     >
-      <span className="transition-opacity group-hover:opacity-0">
+      <span className="flex items-center gap-1.5 transition-opacity group-hover:opacity-0">
+        <CategoryIcon category={props.category} />
         {props.category}
       </span>
       <div className="absolute -inset-px flex items-center justify-center opacity-0 group-hover:opacity-100 bg-destructive text-primary-foreground transition-opacity">
