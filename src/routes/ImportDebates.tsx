@@ -30,7 +30,7 @@ const ImportDebates = () => {
   );
   const [url, setUrl] = useState("");
   const [slugs, setSlugs] = useState([]);
-  const [fetchedTournaments, setFetchedTouraments] = useState(false);
+  const [fetchedTournaments, setFetchedTournaments] = useState(false);
   const [load, setLoad] = useState(false);
   const [error, setError] = useState(false);
   const [selectedSlug, setSelectedSlug] = useState("_");
@@ -52,13 +52,22 @@ const ImportDebates = () => {
 
   // object for endpoints
   const endpointReference: Record<string, string> = {
-    "BP": `${import.meta.env.VITE_API_URL}/api/tab/import`,
-    "WSDC": `${import.meta.env.VITE_API_URL}/api/wsdc/import`,
-    "Australs": `${import.meta.env.VITE_API_URL}/api/australs/import`,
-  }
+    BP: `${import.meta.env.VITE_API_URL}/api/tab/import`,
+    WSDC: `${import.meta.env.VITE_API_URL}/api/wsdc/import`,
+    Australs: `${import.meta.env.VITE_API_URL}/api/australs/import`,
+  };
 
+  const chooseSlug = (selectedSlug: string) => {
+    setNames([]);
+    setSelectedName("");
+    setFetchedNames(false);
+    setDate(new Date());
+    setMonth(new Date());
+    setNameError(false);
+    setSelectedSlug(selectedSlug);
+  };
   const handleSlugFetch = async () => {
-    setFetchedTouraments(true);
+    setFetchedTournaments(true);
     const token = await user?.getIdToken();
     try {
       setLoad(true);
@@ -83,10 +92,10 @@ const ImportDebates = () => {
 
       console.log(json);
       setSlugs(json);
-      setSelectedSlug(json[0].slug);
+      chooseSlug(json[0].slug);
     } catch (err) {
       console.error(err);
-      setFetchedTouraments(false);
+      setFetchedTournaments(false);
       setError(true);
       const message = err instanceof Error ? err.message : String(err);
       if (message === "tab auth") {
@@ -155,7 +164,6 @@ const ImportDebates = () => {
       const json = await response.json();
       console.log(json);
 
-
       // if no names then error
       if (json.length === 0) {
         throw new Error("No speakers found with that name.");
@@ -191,17 +199,14 @@ const ImportDebates = () => {
         speaker: selectedName,
         date: date.toISOString().slice(0, 10),
       };
-      const response = await fetch(
-        endpointReference[tournamentType],
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(reqData),
+      const response = await fetch(endpointReference[tournamentType], {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify(reqData),
+      });
       if (!response.ok) {
         const t = await response.json();
         throw new Error(t.detail);
@@ -285,7 +290,7 @@ const ImportDebates = () => {
                           ? "border-primary border-3 bg-accent/10"
                           : "hover:bg-accent/50"
                       }`}
-                      onClick={() => setSelectedSlug(x.slug)}
+                      onClick={() => chooseSlug(x.slug)}
                       asChild
                     >
                       <a target="_blank" rel="noopener noreferrer">
